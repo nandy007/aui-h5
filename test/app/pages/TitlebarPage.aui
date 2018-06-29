@@ -1,0 +1,162 @@
+<ui>
+    <aui-header>
+        <aui-titlebar>
+            <left-area>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i></aui-action>
+            </left-area>
+            <caption-area>
+                <aui-text>Titlebar</aui-text>
+            </caption-area>
+        </aui-titlebar>
+    </aui-header>
+
+    <aui-scroller class="content" style="position: absolute; top: 45px; right: 0px; bottom: 0px;left: 0px;padding: 10px 0px; background-color: #f5f5f9;">
+
+        <aui-titlebar>
+            <left-area>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i></aui-action>
+            </left-area>
+            <caption-area>
+                <aui-text>左右图标</aui-text>
+            </caption-area>
+            <right-area>
+                <a>
+                    <i class="icon auicon icon-rdoadd"></i>
+                </a>
+                <a>
+                    <i class="icon auicon icon-search"></i>
+                </a>
+            </right-area>
+        </aui-titlebar>
+
+        <br/>
+        <aui-titlebar>
+            <left-area>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i>返回</aui-action>
+            </left-area>
+            <caption-area>
+                <aui-text>传统布局</aui-text>
+            </caption-area>
+            <right-area>
+                <a>
+                    <i class="icon auicon icon-search"></i>搜索
+                </a>
+            </right-area>
+        </aui-titlebar>
+
+        <br/>
+        <aui-titlebar>
+            <caption-area class="grid-cell flex-1 grid-cell-left">
+                靠左文本
+            </caption-area>
+            <right-area>
+                <a>
+                    <i class="icon auicon icon-search"></i>搜索
+                </a>
+            </right-area>
+        </aui-titlebar>
+
+        <br/>
+        <aui-titlebar>
+            <left-area>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i></aui-action>
+            </left-area>
+            <caption-area>
+                <aui-text>带边框ICON</aui-text>
+            </caption-area>
+            <right-area>
+                <a class="outline">
+                    <i class="icon auicon icon-search"></i>搜索
+                </a>
+            </right-area>
+        </aui-titlebar>
+
+        <br/>
+        <aui-titlebar class="reverse">
+            <left-area>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i></aui-action>
+            </left-area>
+            <caption-area>
+                <aui-text>左右图标</aui-text>
+            </caption-area>
+            <right-area>
+                <a>
+                    <i class="icon auicon icon-rdoadd"></i>
+                </a>
+                <a>
+                    <i class="icon auicon icon-search"></i>
+                </a>
+            </right-area>
+        </aui-titlebar>
+
+        <br/>
+        <aui-titlebar class="reverse">
+            <left-area>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i>返回</aui-action>
+            </left-area>
+            <caption-area>
+                <aui-text>传统布局</aui-text>
+            </caption-area>
+            <right-area>
+                <a>
+                    <i class="icon auicon icon-search"></i>搜索
+                </a>
+            </right-area>
+        </aui-titlebar>
+
+        <br/>
+        <aui-titlebar class="reverse">
+            <caption-area class="grid-cell flex-1 grid-cell-left">
+                靠左文本
+            </caption-area>
+            <right-area>
+                <a>
+                    <i class="icon auicon icon-search"></i>搜索
+                </a>
+            </right-area>
+        </aui-titlebar>
+
+        <br/>
+        <aui-titlebar class="reverse">
+            <left-area>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i></aui-action>
+            </left-area>
+            <caption-area>
+                <aui-text>带边框ICON</aui-text>
+            </caption-area>
+            <right-area>
+                <a class="outline">
+                    <i class="icon auicon icon-search"></i>搜索
+                </a>
+            </right-area>
+        </aui-titlebar>
+        
+    </aui-scroller>
+</ui>
+
+
+<script>
+import '@auicomp/text/Text.aui';
+import '@auicomp/grid/Grid.aui';
+import '@auicomp/titlebar/Titlebar.aui';
+
+export default class TitlebarPage{
+    
+    static get tag(){
+        return 'titlebarpage';
+    }
+
+    created(){
+        
+    }
+}
+
+</script>
+
+<style>
+aui-main{
+    display: block;
+}
+</style>
+
+

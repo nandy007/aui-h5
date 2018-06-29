@@ -1,0 +1,83 @@
+@import url('../../assets/less/common.less');
+
+@titlebar-bg-color: @white;
+@titlebar-border: @border-default;
+@titlebar-title: @black;
+@titlebar-title-font-size: 16px;
+@titlebar-title-icon: 24px;
+
+
+aui-titlebar{
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    min-height: @height;
+    background-color: @titlebar-bg-color;
+
+    border-bottom: @titlebar-border;
+
+
+    & > *{
+        display: flex;
+        align-items: center;
+    }
+
+    /* 按钮 */
+    left-area, right-area{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        font-size: @titlebar-title-font-size - 2;
+
+        .icon{
+            font-size: @titlebar-title-icon;
+            display: inline-block;
+            width: @titlebar-title-icon;
+        }
+
+        aui-action, a{
+            margin: 0px 4px;
+        }
+
+        .outline{
+            border: @border-default;
+            border-radius: 40px;
+            padding:6px 8px;
+
+            .icon{
+                font-size: @titlebar-title-icon - 6;
+            }
+        }
+    }
+    left-area{
+        left: 8px;
+    }
+    right-area{
+        right: 8px;
+    }
+
+    /* 标题 */
+    caption-area{
+        position: relative;
+        font-size: @titlebar-title-font-size;
+        font-weight: normal;
+        flex:1;
+        color: @titlebar-title;
+        justify-content: center;
+        padding: 0px 10px;
+    }
+    left-area + caption-area{
+        padding: 0 100px;
+    }
+
+}
+
+aui-titlebar.reverse{
+    background-color: @primary-color;
+
+    * {
+        color: #fff;
+    }
+}

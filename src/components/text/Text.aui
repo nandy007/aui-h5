@@ -1,0 +1,7 @@
+<script>
+export default class Text{
+    static get tag(){
+        return 'text';
+    }
+}
+</script>

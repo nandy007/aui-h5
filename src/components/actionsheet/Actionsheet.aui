@@ -1,0 +1,125 @@
+<ui>
+    <div class="actionsheet-mask " v-bind:class="{active:isActive}" v-on:click="doClose">
+        <div class="anim" v-bind:class="{slideUpIn:isAnim, slideDownOut:!isAnim}">
+            <ul class="actionsheet-content">
+                <li class="actionsheet-item" v-for="item in list" v-on:click="item.handler" v-html="item.text"></li>
+            </ul>
+            <span class="actionsheet-cancel" v-on:click="doCancel">取消</span>
+        </div>
+    </div>
+</ui>
+
+<script>
+
+
+import $ from 'agile-ce';
+
+export default class Actionsheet{
+
+    static get tag(){
+        return 'actionsheet';
+    }
+
+    static show (options) {
+        if (!Actionsheet.$el) {
+            Actionsheet.$el = $('<aui-actionsheet></aui-actionsheet>').appendTo(document.body);
+        }
+        var el = Actionsheet.$el[0], component = el.component, obj = component.$obj;
+        obj.list = options.list;
+        obj.isActive = true;
+        obj.isAnim = true;
+        obj.doCancel = function () {
+            options.doCancel && options.doCancel();
+        }
+    }
+
+    constructor(){
+        this.init();
+    }
+
+    init () {
+        var actionsheet = this;
+        this.$obj = {
+            isAnim: false,
+            isActive: false,
+            list: [],
+            doClose: function () {
+                var obj = actionsheet.$obj;
+                obj.isAnim = false;
+                setTimeout(function () {
+                    obj.isActive = false;
+                }, 300);
+            },
+            doCancel: function () {
+
+            }
+        };
+    }
+    created () {
+        this.$vm = $(this.$el).render(this.$obj);
+    }
+    detached () {
+        this.$vm && this.$vm.destroy();
+        delete Actionsheet.$el;
+    }
+
+}
+
+</script>
+
+<style type="less">
+@import url('../../assets/less/common.less');
+@import url('../../assets/css/anim.css');
+
+aui-actionsheet{
+
+    & > .actionsheet-mask {
+        display: none;
+    }
+
+    & > .actionsheet-mask.active {
+        display: block;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 90;
+        background-color: rgba(0, 0, 0, .4);
+    }
+
+    .anim {
+        position: fixed;
+        right: 6px;
+        bottom: 0;
+        left: 6px;
+    }
+
+    .actionsheet-content li,
+    .actionsheet-cancel {
+        display: block;
+        background: #e8e8e8;
+        line-height: 46px;
+        font-size: 16px;
+        text-align: center;
+        color: @primary-color;
+        border-bottom: 1px solid #d2d2d6;
+    }
+
+    .actionsheet-item:first-child {
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+
+    .actionsheet-item:last-child {
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
+    .actionsheet-cancel {
+        border-radius: 3px;
+        margin: 6px 0px;
+    }
+}
+    
+</style>

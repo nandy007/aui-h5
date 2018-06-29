@@ -1,0 +1,48 @@
+<ui>
+    <aui-header>
+        <aui-titlebar>
+            <left-area>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i></aui-action>
+            </left-area>
+            <caption-area>
+                <aui-text>Badges</aui-text>
+            </caption-area>
+        </aui-titlebar>
+    </aui-header>
+
+    <aui-scroller class="content" style="position: absolute; top: 45px; right: 0px; bottom: 0px;left: 0px;text-align: center;padding: 10px;">
+
+        <span class="badge">1</span>
+        <span class="badge badge-primary">2</span>
+        <span class="badge badge-positive">3</span>
+        <span class="badge badge-negative">4</span>
+
+        <span class="badge badge-inverted">1</span>
+        <span class="badge badge-primary badge-inverted">2</span>
+        <span class="badge badge-positive badge-inverted">3</span>
+        <span class="badge badge-negative badge-inverted">4</span>
+        
+    </aui-scroller>
+</ui>
+
+
+<script>
+import '@auicomp/header/Header.aui';
+import '@auicomp/button/Button.aui';
+import '@auicomp/scroller/Scroller.aui';
+import '@auicomp/titlebar/Titlebar.aui';
+
+export default class BadgesPage{
+    
+    static get tag(){
+        return 'badgespage';
+    }
+}
+
+</script>
+
+<style>
+
+</style>
+
+

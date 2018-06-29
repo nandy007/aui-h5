@@ -1,0 +1,68 @@
+@import url('../../assets/less/common.less');
+    
+@import url('../../assets/css/anim.css');
+
+
+.confirm-mask {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 99;
+}
+
+.confirm-mask.active {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirm {
+    width: 270px;
+    min-height: 130px;
+    background: #e8e8e8;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+}
+
+.confirm-title {
+    text-align: center;
+    padding: 15px;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+}
+
+.confirm-content {
+    text-align: center;
+    padding: 0 10px 10px 10px;
+    line-height: 1.2em;
+    font-size: 14px;
+}
+
+.confirm-handler {
+    margin-top: 16px;
+    line-height: 40px;
+    text-align: center;
+    display: block;
+    color: #222;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    color: @primary-color;
+    font-size: 16px;
+}
+
+.confirm-handler-ok {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.confirm-handler-ok,
+.confirm-handler-cancel {
+    display: inline-block;
+    width: 48%;
+    height: 100%;
+    cursor: pointer;
+}

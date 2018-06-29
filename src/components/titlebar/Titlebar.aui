@@ -1,0 +1,11 @@
+<script>
+export default class Titlebar{
+    static get tag(){
+        return 'titlebar';
+    }
+}
+</script>
+
+<style type="less">
+@import url('./titlebar.less');
+</style>

@@ -1,0 +1,167 @@
+<ui>
+    <aui-header>
+        <aui-titlebar>
+            <left-area>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i></aui-action>
+            </left-area>
+            <caption-area>
+                <aui-text>Dialog</aui-text>
+            </caption-area>
+        </aui-titlebar>
+    </aui-header>
+
+    <aui-scroller class="content" style="position: absolute; top: 45px; right: 0px; bottom: 0px;left: 0px;text-align: center;padding: 10px;">
+        
+        <aui-button class="btn-block" v-for="item in list" v-text="item.text" v-on:click="item.handler"></aui-button>
+        
+    </aui-scroller>
+</ui>
+
+
+<script>
+
+import Alert from '@auicomp/alert/Alert.aui';
+import Confirm from '@auicomp/confirm/Confirm.aui';
+import Toast from '@auicomp/toast/Toast.aui';
+import Popup from '@auicomp/popup/Popup.aui';
+import Actionsheet from '@auicomp/actionsheet/Actionsheet.aui';
+import Loading from '@auicomp/loading/Loading.aui';
+import $ from 'agile-ce';
+
+export default class DialogPage{
+    
+    static get tag(){
+        return 'dialogpage';
+    }
+
+    created(){
+        const obj = {
+            list: [
+                {
+                    text: 'Alert',
+                    handler: function(){
+                        Alert.show({
+                            content: '你好，AUI',
+                            doOk: function(){
+                                console.log('Alert OK');
+                            }
+                        });
+                    }
+                },
+                {
+                    text: 'Confirm',
+                    handler: function(){
+                        Confirm.show({
+                            content: '你好，AUI',
+                            doOk: function(){
+                                console.log('Confirm OK');
+                            },
+                            doCancel: function(){
+                                console.log('Confirm Cancel');
+                            }
+                        });
+                    }
+                },
+                {
+                    text: 'Toast',
+                    handler: function(){
+                        Toast.show('你好，AUI', function(){
+                            console.log('Toast Close');
+                        });
+                    }
+                },
+                {
+                    text: 'Actionsheet',
+                    handler: function(){
+                        Actionsheet.show({
+                            list: [
+                                {
+                                    text: '菜单一',
+                                    handler: function () {
+                                        console.log('点了菜单一');
+                                    }
+                                },
+                                {
+                                    text: '菜单二',
+                                    handler: function () {
+                                        console.log('点了菜单二');
+                                     }
+                                }
+                            ],
+                            doCancel: function () {
+                                console.log('点了取消');
+                            }
+                        });
+                    }
+                },
+                {
+                    text: 'Loading',
+                    handler: function(){
+                        Loading.show();
+                        setTimeout(function(){
+                            Loading.hide();
+                        }, 3000);
+                    }
+                },
+                {
+                    text: 'Popup Top',
+                    handler: function(){
+                        Popup.show({
+                            html: '<aui-button popup-handler="close">关闭</aui-button>',
+                            pos: 'top'
+                        });
+                    }
+                },
+                {
+                    text: 'Popup Right',
+                    handler: function(){
+                        Popup.show({
+                            html: '<aui-button popup-handler="close">关闭</aui-button>',
+                            pos: 'right'
+                        });
+                    }
+                },
+                {
+                    text: 'Popup Bottom',
+                    handler: function(){
+                        Popup.show({
+                            html: '<aui-button popup-handler="close">关闭</aui-button>',
+                            pos: 'bottom'
+                        });
+                    }
+                },
+                {
+                    text: 'Popup Left',
+                    handler: function(){
+                        Popup.show({
+                            html: '<aui-button popup-handler="close">关闭</aui-button>',
+                            pos: 'left'
+                        });
+                    }
+                },
+                {
+                    text: 'Popup Center',
+                    handler: function(){
+                        Popup.show({
+                            html: '<aui-button popup-handler="close">关闭</aui-button>',
+                            pos: 'center'
+                        });
+                    }
+                }
+            ]
+        };
+        this.$vm = $(this.$el).find('aui-scroller').render(obj);
+    }
+
+    detached(){
+        this.$vm && this.$vm.destroy();
+    }
+}
+
+</script>
+
+<style>
+
+</style>
+
+

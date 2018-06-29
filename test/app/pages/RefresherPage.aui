@@ -1,0 +1,100 @@
+<ui>
+    <aui-header>
+        <aui-titlebar>
+            <left-area>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i></aui-action>
+            </left-area>
+            <caption-area>
+                <aui-text>Refresher</aui-text>
+            </caption-area>
+        </aui-titlebar>
+    </aui-header>
+
+    <aui-refresher style="position:absolute; top:45px; right: 0px; bottom: 0px; left: 0px; overflow: hidden;">
+        <div style="padding: 20px 0px;">
+            <aui-list>
+                <list-cell v-for="item in list">
+                    <a>
+                        {{item.title}} <i class="icon auicon icon-arrowright"></i>
+                    </a>
+                </list-cell>
+            </aui-list>
+        </div>
+    </aui-refresh>
+</ui>
+
+
+<script>
+
+import '@auicomp/refresher/Refresher.aui';
+import '@auicomp/list/List.aui';
+
+let listIndex = 0;
+
+export default class RefresherPage{
+    
+    static get tag(){
+        return 'refresherpage';
+    }
+
+    init(){
+        const arr = [];
+        for(let i=0;i<20;i++){
+            arr.push({
+                title: '标题'+listIndex++
+            });
+        }
+
+        const obj = this.$obj = {
+            list: arr
+        }
+        this.$vm = $(this.$el).find('aui-list').render(obj);
+
+    }
+
+    created(){
+
+        this.init();
+
+        const obj = this.$obj;
+        
+        $(this.$el).find('aui-refresher')
+        .on('pulldown', function(e, $refresh){
+            setTimeout(function(){
+                const arr = [];
+                for(let i=0;i<20;i++){
+                    arr.push({
+                        title: '标题'+listIndex++
+                    });
+                }
+                obj.list.$reset(arr);
+
+                $refresh.refresh();
+            }, 2000);
+        }).on('pullup', function(e, $refresh){
+            setTimeout(function(){$refresh.refresh();
+
+                const arr = [];
+                for(let i=0;i<5;i++){
+                    arr.push({
+                        title: '标题'+listIndex++
+                    });
+                }
+                obj.list.push(...arr);
+
+                
+                $refresh.refresh();
+                
+
+            }, 2000);
+        });
+    }
+}
+
+</script>
+
+<style>
+
+</style>
+
+

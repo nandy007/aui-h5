@@ -1,0 +1,85 @@
+<ui>
+    <aui-header>
+        <aui-titlebar>
+            <caption-area>
+                <aui-text>DEMO</aui-text>
+            </caption-area>
+        </aui-titlebar>
+    </aui-header>
+
+    <aui-scroller class="content" style="position: absolute;top: 45px; right: 0px; bottom: 0px; left: 0px;">
+        <br/>
+        <aui-list>
+            <list-cell>
+                <aui-action href="#/list">
+                    列表组件 <i class="icon auicon icon-arrowright"></i>
+                </aui-action>
+            </list-cell>
+            <list-cell>
+                <aui-action href="#/button">
+                    按钮组件 <i class="icon auicon icon-arrowright"></i>
+                </aui-action>
+            </list-cell>
+            <list-cell>
+                <aui-action href="#/badges">
+                    气泡组件 <i class="icon auicon icon-arrowright"></i>
+                </aui-action>
+            </list-cell>
+             <list-cell>
+                <aui-action href="#/titlebar">
+                    标题栏组件 <i class="icon auicon icon-arrowright"></i>
+                </aui-action>
+            </list-cell>
+            <list-cell>
+                <aui-action href="#/tabbar">
+                    标签栏组件 <i class="icon auicon icon-arrowright"></i>
+                </aui-action>
+            </list-cell>
+            <list-cell>
+                <aui-action href="#/dialog">
+                    弹窗组件 <i class="icon auicon icon-arrowright"></i>
+                </aui-action>
+            </list-cell>
+            <list-cell>
+                <aui-action href="#/refresh">
+                    下拉刷新组件 <i class="icon auicon icon-arrowright"></i>
+                </aui-action>
+            </list-cell>
+            <list-cell>
+                <aui-action href="#/swiper">
+                    滑动块组件 <i class="icon auicon icon-arrowright"></i>
+                </aui-action>
+            </list-cell>
+            <list-cell>
+                <aui-action href="#/form">
+                    表单组件 <i class="icon auicon icon-arrowright"></i>
+                </aui-action>
+            </list-cell>
+        </aui-list>
+    </aui-scroller>
+</ui>
+
+
+<script>
+import '@auicomp/header/Header.aui';
+import '@auicomp/footer/Footer.aui';
+import '@auicomp/scroller/Scroller.aui';
+import '@auicomp/text/Text.aui';
+import '@auicomp/grid/Grid.aui';
+import '@auicomp/titlebar/Titlebar.aui';
+import '@auicomp/list/List.aui';
+import '@auicomp/action/Action.aui';
+
+export default class MainPage{
+    
+    static get tag(){
+        return 'mainpage';
+    }
+
+    created(){
+        
+    }
+}
+
+</script>
+

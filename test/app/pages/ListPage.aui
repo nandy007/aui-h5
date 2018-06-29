@@ -1,0 +1,164 @@
+<ui>
+    <aui-header>
+        <aui-titlebar>
+            <left-area>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i></aui-action>
+            </left-area>
+            <caption-area>
+                <aui-text>List</aui-text>
+            </caption-area>
+        </aui-titlebar>
+    </aui-header>
+
+    <aui-scroller class="content" style="position: absolute; top: 45px; right: 0px; bottom: 0px;left: 0px;">
+        <aui-list>
+            <list-cell>
+                <a>
+                    单行列表 <i class="icon auicon icon-arrowright"></i>
+                </a>
+            </list-cell>
+            <list-cell>
+                <a>
+                    单行列表 <i class="icon auicon icon-arrowright"></i>
+                </a>
+            </list-cell>
+            <list-cell>
+                <a>
+                    单行列表 <i class="icon auicon icon-arrowright"></i>
+                </a>
+            </list-cell>
+        </aui-list>
+
+        <aui-list>
+            <list-cell>带气泡列表 <span class="badge">4</span></list-cell>
+            <list-cell>带气泡列表 <span class="badge">1</span></list-cell>
+            <list-cell>带气泡列表 <span class="badge">5</span></list-cell>
+        </aui-list>
+
+        <aui-list>
+            <list-cell>
+                带气泡和箭头列表
+                <right-area><span class="badge">4</span><i class="icon auicon icon-arrowright"></i></right-area>
+            </list-cell>
+            <list-cell>
+                带气泡和箭头列表
+                <right-area><span class="badge">4</span><i class="icon auicon icon-arrowright"></i></right-area>
+            </list-cell>
+            <list-cell>
+                带气泡和箭头列表
+                <right-area><span class="badge">4</span><i class="icon auicon icon-arrowright"></i></right-area>
+            </list-cell>
+        </aui-list>
+
+        <aui-list>
+            <list-cell class="grid">
+                <grid-cell>
+                    <img class="media-object pull-left" src="./assets/imgs/42x42.png">
+                </grid-cell>
+                <grid-cell class="flex-1 padded">
+                    Item 1
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
+                </grid-cell>
+                <grid-cell class="grid-cell-middle">
+                    <i class="icon auicon icon-arrowright"></i>
+                </grid-cell>
+            </list-cell>
+            <list-cell class="grid">
+                <grid-cell>
+                    <img class="media-object pull-left" src="./assets/imgs/42x42.png">
+                </grid-cell>
+                <grid-cell class="flex-1 padded">
+                    Item 1
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore. Lorem ipsum dolor sit amet.</p>
+                </grid-cell>
+                <grid-cell class="grid-cell-middle">
+                    <i class="icon auicon icon-arrowright"></i>
+                </grid-cell>
+            </list-cell>
+        </aui-list>
+
+        <aui-list>
+            <list-cell>
+                <a>
+                    <span><i class="icon auicon icon-pic"></i> 带ICON列表</span> <i class="icon auicon icon-arrowright"></i>
+                </a>
+            </list-cell>
+            <list-cell>
+                <a>
+                    <span><i class="icon auicon icon-people"></i> 带ICON列表</span> <i class="icon auicon icon-arrowright"></i>
+                </a>
+            </list-cell>
+            <list-cell>
+                <a>
+                    <span><i class="icon auicon icon-notepad"></i> 带ICON列表</span> <i class="icon auicon icon-arrowright"></i>
+                </a>
+            </list-cell>
+        </aui-list>
+
+
+        <aui-list>
+            <list-cell>Item 1 <button class="btn">Button</button></list-cell   >
+            <list-cell>Item 2 <button class="btn btn-primary">Button</button></list-cell>
+            <list-cell>Item 3 <button class="btn btn-positive">Button</button></list-cell>
+            <list-cell>Item 4 <button class="btn btn-negative">Button</button></list-cell>
+        </aui-list>
+
+        <aui-list>
+            <list-cell>
+                带Toggle按钮列表
+                <right-area>
+                    <aui-toggle><input type="checkbox" checked/></aui-toggle>
+                </right-area>
+            </list-cell>
+        </aui-list>
+
+        <aui-card>
+            <aui-list>
+                <list-cell>
+                    <a>
+                        卡片列表 <i class="icon auicon icon-arrowright"></i>
+                    </a>
+                </list-cell>
+                <list-cell>
+                    <a>
+                        卡片列表 <i class="icon auicon icon-arrowright"></i>
+                    </a>
+                </list-cell>
+                <list-cell>
+                    <a>
+                        卡片列表 <i class="icon auicon icon-arrowright"></i>
+                    </a>
+                </list-cell>
+            </aui-list>
+        </aui-card>
+
+    </aui-scroller>
+
+</ui>
+
+
+<script>
+    import '@auicomp/header/Header.aui';
+    import '@auicomp/footer/Footer.aui';
+    import '@auicomp/scroller/Scroller.aui';
+    import '@auicomp/text/Text.aui';
+    import '@auicomp/grid/Grid.aui';
+    import '@auicomp/titlebar/Titlebar.aui';
+    import '@auicomp/list/List.aui';
+    import '@auicomp/button/Button.aui';
+    import '@auicomp/toggle/Toggle.aui';
+    import '@auicomp/card/Card.aui';
+    import '@auicomp/action/Action.aui';
+    
+
+    export default class ListPage {
+
+        static get tag() {
+            return 'listpage';
+        }
+
+        created() {
+
+        }
+    }
+</script>

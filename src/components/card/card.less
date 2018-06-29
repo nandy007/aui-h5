@@ -1,0 +1,37 @@
+@import url('../../assets/less/common.less');
+
+@card-broder-raduis: 6px;
+
+aui-card, .card{
+    display: block;
+    margin: 10px;
+    border: @border-default;
+    border-radius: @card-broder-raduis;
+
+    > aui-list{
+        border: none;
+    }
+
+    card-divider, card-divider-top, card-divider-bottom{
+        display: block;
+        background-color: #ececec;
+        border-bottom: @border-default;
+        padding: 11px 15px;
+    }
+
+    card-divider-top{
+        border-top-left-radius: @card-broder-raduis;
+        border-top-right-radius: @card-broder-raduis;
+    }
+
+    card-divider-bottom{
+        border-bottom-left-radius: @card-broder-raduis;
+        border-bottom-right-radius: @card-broder-raduis;
+    }
+
+    card-content{
+        display: block;
+        padding: 11px 15px;
+    }
+
+}

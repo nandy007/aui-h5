@@ -1,0 +1,59 @@
+@import url('../../assets/less/common.less');
+
+
+@toggle-color: #fdfdfd;
+@toggle-checked-color: @positive-color;
+@toggle-border-color: #dfdfdf;
+
+
+aui-toggle > .toggle,  aui-toggle > input{
+    width: 52px;
+    height: 31px;
+    position: relative;
+    border: 1px solid @toggle-border-color;
+    background-color: @toggle-color;
+    box-shadow: @toggle-border-color 0 0 0 0 inset;
+    border-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-clip: content-box;
+    display: inline-block;
+    -webkit-appearance: none;
+    user-select: none;
+    outline: none;
+
+    cursor: pointer;
+
+    transition: background-color ease 0.4s;
+
+    &:before {
+      content: '';
+      width: 29px;
+      height: 29px;
+      position: absolute;
+      top: 0px;
+      left: 0;
+      border-radius: 20px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+
+      transition: left 0.3s;
+    }
+    &:checked {
+      border-color: @toggle-checked-color;
+      box-shadow: @toggle-border-color 0 0 0 0 inset;
+        background-color: @toggle-checked-color;
+        transition: border-color 0.4s, background-color ease 0.4s;
+        &:before {
+            left: 21px;
+            transition: left 0.3s;
+        }
+    }
+}
+  

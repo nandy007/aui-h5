@@ -1,0 +1,190 @@
+<ui>
+    <div class="popup-mask">
+        <div class="popup-content">
+            <child></child>
+        </div>
+    </div>
+</ui>
+
+<script>
+
+
+import $ from 'agile-ce';
+
+var transitionMap = {
+    default: ['fadeIn', 'fadeOut'],
+    top: ['slideDownIn', 'slideUpOut'],
+    bottom: ['slideUpIn', 'slideDownOut'],
+    center: ['bounceIn', 'bounceOut'],
+    left: ['slideRightIn', 'slideLeftOut'],
+    right: ['slideLeftIn', 'slideRightOut']
+};
+
+
+export default class Popup{
+
+    static get tag(){
+        return 'popup';
+    }
+
+    static show (options) {
+        var htmlFragment = [
+            '<aui-popup',
+            options.id ? ' id="' + options.id + '"' : '',
+            options.css ? ' class="' + options.css + '"' : '',
+            ' pos="' + (options.pos || '') + '"',
+            ' isBlock="' + (options.isBlock || 'false') + '"',
+            '>',
+            options.html,
+            '</aui-popup>'
+        ];
+        $(htmlFragment.join(''))
+            .appendTo(document.body)
+            .on('open', function(){
+                options.onOpen && options.onOpen.apply(this);
+            })
+            .on('close', function(){
+                options.onClose && options.onClose.apply(this);
+            })
+            .on('created', function(){
+                this.$open();
+            });
+    }
+
+    setMask () {
+        var popup = this;
+        var $el = this.$popup;
+        var $mask = $el.children('.popup-mask');
+        var isBlock = !!(new Function(' return ' + $el.attr('isBlock') + ';'))();
+        if (!isBlock) {
+            $mask.on('click', function () {
+                popup.close();
+            });
+        }
+    }
+
+    doAnimate () {
+        try{
+            var popup = this;
+            var $el = this.$popup, $content = $el.find('.popup-mask > .popup-content');
+            $el.addClass('active');
+            var pos = $el.attr('pos');
+            if(! transitionMap[pos]) pos = 'default';
+            this.pos = pos;
+            this.$content = $content;
+            $content.addClass('popup-anim popup-' + pos + ' anim ' + transitionMap[pos][0]);
+            setTimeout(function(){
+                popup.setMask();
+                $el.trigger('open');
+            }, 300);
+        }catch(e){
+            alert(pos);
+        }
+    }
+    created () {
+        var popup = this;
+        var $el = this.$popup = $(this.$el);
+
+        this.$el.$open = function(){
+            popup.open();
+        };
+        this.$el.$close = function(){
+            popup.close();
+        };
+        $el.on('click', '[popup-handler="close"]', function(){
+            popup.close();
+        })
+        .trigger('created');
+    }
+    close () {
+        var popup = this;
+        var $el = this.$popup;
+        var $el = this.$popup, $content = this.$content;
+        var pos = this.pos;
+        $content.removeClass('anim ' + transitionMap[pos][0]).addClass('anim ' + transitionMap[pos][1]);
+        setTimeout(function(){
+            $el.trigger('close');
+            $el.remove();
+                
+        }, 300);
+    }
+    open(){
+        this.doAnimate();
+    }
+
+}
+
+
+</script>
+
+
+<style type="less">
+@import url('../../assets/css/anim.css');
+aui-popup{
+    display: none;
+
+    &.active{
+        display: block;
+    }
+
+    .popup-mask {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 99;
+    }
+
+    .popup-content {
+        display: none;
+    }
+
+    .popup-anim {
+        display: block;
+        position: absolute;
+        z-index: 90;
+        min-height: 50px;
+        background-color: #e8e8e8;
+    }
+
+    .popup-anim.popup-top {
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .popup-anim.popup-bottom {
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .popup-anim.popup-center {
+        position: static;
+        min-width: 270px;
+        border-radius: 6px;
+        box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .popup-anim.popup-left {
+        left: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .popup-anim.popup-right {
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+}
+
+    
+</style>

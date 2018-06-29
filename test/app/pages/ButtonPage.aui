@@ -1,0 +1,121 @@
+<ui>
+    <aui-header>
+        <aui-titlebar>
+            <left-area>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i></aui-action>
+            </left-area>
+            <caption-area>
+                <aui-text>Button</aui-text>
+            </caption-area>
+        </aui-titlebar>
+    </aui-header>
+
+    <aui-scroller class="content" style="position: absolute; top: 45px; right: 0px; bottom: 0px;left: 0px;">
+
+        <aui-card>
+            <card-divider-top>小按钮</card-divider-top>
+            <card-content>
+       
+                <aui-button class="btn">Button</aui-button>
+                <aui-button class="btn btn-primary">Button</aui-button>
+                <aui-button class="btn btn-positive">Button</aui-button>
+                <aui-button class="btn btn-negative">Button</aui-button>
+                <aui-button class="btn btn-link">Button</aui-button>
+
+                <aui-button class="btn btn-outlined">Button</aui-button>
+                <aui-button class="btn btn-primary btn-outlined">Button</aui-button>
+                <aui-button class="btn btn-positive btn-outlined">Button</aui-button>
+                <aui-button class="btn btn-negative btn-outlined">Button</aui-button>
+   
+            </card-content>
+
+            <card-divider>带ICON按钮</card-divider>
+            <card-content>
+       
+                <aui-button class="btn">
+                    <i class="icon iconfont icon-sousuo"></i>
+                    Button
+                </aui-button>
+                <aui-button class="btn btn-primary">
+                    <i class="icon iconfont icon-sousuo"></i>
+                    Button
+                </aui-button>
+                <aui-button class="btn btn-positive">
+                    <i class="icon iconfont icon-sousuo"></i>
+                    Button
+                </aui-button>
+                <aui-button class="btn btn-negative">
+                    <i class="icon iconfont icon-sousuo"></i>
+                    Button
+                </aui-button>
+                <aui-button class="btn btn-link">
+                    <i class="icon iconfont icon-zuojiantou"></i>
+                    Button
+                </aui-button>
+   
+            </card-content>
+
+
+            <card-divider>带气泡按钮</card-divider>
+            <card-content>
+       
+                <aui-button class="btn">Badge button <span class="badge">1</span></aui-button>
+                <aui-button class="btn btn-primary">Badge button <span class="badge badge-primary">1</span></aui-button>
+                <aui-button class="btn btn-positive">Badge button <span class="badge badge-positive">1</span></aui-button>
+                <aui-button class="btn btn-negative">Badge button <span class="badge badge-negative">1</span></aui-button>
+
+                <aui-button class="btn btn-outlined">Badge button <span class="badge badge-inverted">1</span></aui-button>
+                <aui-button class="btn btn-outlined btn-primary">Badge button <span class="badge badge-primary badge-inverted">1</span></aui-button>
+                <aui-button class="btn btn-outlined btn-positive">Badge button <span class="badge badge-positive badge-inverted">1</span></aui-button>
+                <aui-button class="btn btn-outlined btn-negative">Badge button <span class="badge badge-negative badge-inverted">1</span></aui-button>
+   
+            </card-content>
+
+            <card-divider>块按钮</card-divider>
+            <card-content>
+       
+                <aui-button class="btn btn-block">Block button</aui-button>
+                <aui-button class="btn btn-primary btn-block">Block button</aui-button>
+                <aui-button class="btn btn-positive btn-block">Block button</aui-button>
+                <aui-button class="btn btn-negative btn-block">Block button</aui-button>
+
+                <aui-button class="btn btn-block btn-outlined">Block button</aui-button>
+                <aui-button class="btn btn-primary btn-block btn-outlined">Block button</aui-button>
+                <aui-button class="btn btn-positive btn-block btn-outlined">Block button</aui-button>
+                <aui-button class="btn btn-negative btn-block btn-outlined">Block button</aui-button>
+   
+            </card-content>
+
+        </aui-card>
+        
+
+    </aui-scroller>
+
+</ui>
+
+
+<script>
+    import '@auicomp/header/Header.aui';
+    import '@auicomp/footer/Footer.aui';
+    import '@auicomp/scroller/Scroller.aui';
+    import '@auicomp/text/Text.aui';
+    import '@auicomp/grid/Grid.aui';
+    import '@auicomp/titlebar/Titlebar.aui';
+    import '@auicomp/list/List.aui';
+    import '@auicomp/button/Button.aui';
+    import '@auicomp/toggle/Toggle.aui';
+    import '@auicomp/card/Card.aui';
+    import '@auicomp/action/Action.aui';
+    
+
+    export default class ButtonPage {
+
+        static get tag() {
+            return 'buttonpage';
+        }
+
+        created() {
+
+        }
+    }
+</script>

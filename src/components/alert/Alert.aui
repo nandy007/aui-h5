@@ -1,0 +1,85 @@
+<ui>
+    <div class="alert-mask" v-bind:class="{active:isActive}">
+        <div class="alert anim" v-bind:class="{bounceIn:alertAnim, bounceOut:!alertAnim}">
+            <div class="alert-title">{{title}}</div>
+            <div class="alert-content">{{content}}</div>
+            <div class="alert-handler">
+                <a class="alert-handler-ok" v-on:click="doOk">确定</a>
+            </div>
+        </div>
+    </div>
+</ui>
+
+
+<script>
+
+import $ from 'agile-ce';
+
+export default class Alert{
+
+    static get tag(){
+        return 'alert';
+    }
+
+    static show (options) {
+        if (!options) return;
+
+        if (!Alert.$alert) {
+            Alert.$alert = $('<aui-alert></aui-alert>').appendTo(document.body);
+        }
+        var el = Alert.$alert[0], component = el.component;
+        var obj = component.$obj;
+        obj._doOk = options.doOk;
+        obj.title = options.title;
+        obj.content = options.content;
+
+        obj.isActive = true;
+        obj.alertAnim = true;
+    }
+
+    constructor(){
+        this.init();
+    }
+
+    init () {
+        var alert = this;
+        this.$obj = {
+            isActive: false,
+            alertAnim: false,
+            get title() {
+                return this._title || '提示';
+            },
+            set title(v) {
+                this._title = v;
+            },
+            content: '',
+            doOk: function () {
+                var obj = alert.$obj;
+                obj.alertAnim = false;
+                setTimeout(function () {
+                    obj.isActive = false;
+                }, 300);
+                obj._doOk && obj._doOk.apply(obj, arguments);
+            }
+        }
+    }
+    
+    created () {
+        this.$vm = $(this.$el).render(this.$obj);
+    }
+    
+    detached () {
+        this.$vm && this.$vm.destroy();
+        delete Alert.$alert;
+    }
+
+}
+
+</script>
+
+<style type="less">
+
+@import url('./alert.less');
+
+    
+</style>

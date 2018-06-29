@@ -1,0 +1,34 @@
+<ui>
+    <aui-page transition="slide"></aui-page>
+</ui>
+
+
+<script>
+import router from '../routers';
+
+
+export default class Frame{
+    
+    static get tag(){
+        return 'frame';
+    }
+
+    created(){
+        const hash = (location.hash||'/').replace('#', '');
+        router.go(hash);
+    }
+}
+
+</script>
+
+<style>
+
+@import url('~@auifont/iconfont.css');
+
+#app, aui-frame{
+    display: block;
+    height: 100%;
+}
+</style>
+
+

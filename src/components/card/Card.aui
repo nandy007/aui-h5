@@ -1,0 +1,14 @@
+<script>
+export default class Card{
+    static get tag(){
+        return 'card';
+    }
+}
+
+</script>
+
+<style type="less">
+
+@import url('./card.less');
+
+</style>

@@ -1,0 +1,84 @@
+<script>
+    import router from "../../utils/router";
+
+    export default class Page {
+        static get tag() {
+            return 'page';
+        }
+
+        static get observeAttributes() {
+            return ['page'];
+        }
+
+        static get router() {
+            return router;
+        }
+
+        on(func) {
+            this._func = func;
+        }
+
+        trigger($page) {
+            this._func && this._func($page);
+        }
+
+        doStrigger() {
+            var $root = document.querySelector('aui-page');
+            if ($root !== this.$el) $root.component.trigger(this.$el);
+        }
+
+        created() {
+            this.doStrigger();
+            //var page = this.$el.getAttribute('page');
+            //if (page) router.go(page);
+        }
+
+        attributeChanged(attrName, oldVal, newVal) {
+            if (attrName === 'page') {
+                this.created();
+            }
+        }
+    }
+
+    export { router };
+</script>
+
+<style type="less">
+    @import url('../../assets/less/common.less');
+    @import url('../../assets/css/anim.css');
+
+    * {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+    }
+
+    body, html{
+        width: 100%;
+        height: 100%;
+        font-size: 14px;
+    }
+
+    aui-page {
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: @white;
+    }
+
+    aui-page > * {
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    aui-page > *.active {
+        display: block;
+    }
+
+    aui-page > *.anim {
+        position: absolute;
+    }
+</style>

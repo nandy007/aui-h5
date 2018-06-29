@@ -1,0 +1,81 @@
+<ui>
+    <div class="swiper-wrapper">
+        <child></child>
+    </div>
+
+</ui>
+
+<script>
+
+// http://www.swiper.com.cn
+import Swiper from 'swiper';
+import 'swiper/dist/css/swiper.css';
+
+
+export default class AuiSwiper{
+    static get tag(){
+        return 'swiper';
+    }
+
+    static init(el, options){
+        const comp = ($(el)[0] || {}).component;
+        comp && comp.init(options);
+    }
+
+    init(options){
+        this.created(options);
+    }
+
+    created(options){
+
+        const $el = $(this.$el)
+
+        if($el.hasAttr('delay')){
+            return;
+        }
+
+        const isDots = $el.hasAttr('pagination'), isNav = $el.hasAttr('navigation');
+
+        if(!$el.hasClass('swiper-container')){
+            $el.addClass('swiper-container');
+        }
+
+        if(isDots){
+            $el.append('<div class="swiper-pagination"></div>');
+        }
+
+        if(isNav){
+            $el.append('<div class="swiper-button-prev"></div><div class="swiper-button-next"></div>');
+        }
+
+        const mySwiper = this.swiper = new Swiper ($el, Object.assign({
+            loop: true,
+            
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            
+            // 如果需要前进后退按钮
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            }
+        }, options || {}));
+    }
+
+    
+}
+
+</script>
+
+<style type="less">
+aui-swiper{
+    display: block;
+
+    .swiper-slide .full{
+        width: 100%;
+    }
+}
+
+</style>

@@ -1,0 +1,19 @@
+<script>
+
+export default class Grid{
+    static get tag(){
+        return 'grid';
+    }
+
+    created(){
+
+    }
+
+}
+
+
+</script>
+
+<style type="less">
+@import url('./grid.less');
+</style>

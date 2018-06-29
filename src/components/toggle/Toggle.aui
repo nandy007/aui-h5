@@ -1,0 +1,23 @@
+<script>
+/**
+ * <aui-toggle><input type="checkbox" checked/></aui-toggle>
+ */
+export default class Toggle{
+    static get tag(){
+        return 'toggle';
+    }
+
+    created(){
+        const toggle = this.$el;
+
+        if(!toggle.querySelector('input')){
+            toggle.innerHTML = '<input type="checkbox">';
+        }
+        
+    }
+}
+</script>
+
+<style type="less">
+@import url('./toggle.less');
+</style>

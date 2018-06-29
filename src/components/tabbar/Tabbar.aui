@@ -1,0 +1,15 @@
+<script>
+
+export default class Tabbar{
+    static get tag(){
+        return 'tabbar';
+    }
+}
+
+</script>
+
+<style type="less">
+
+@import url('./tabbar.less');
+
+</style>

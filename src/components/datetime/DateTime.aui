@@ -1,0 +1,115 @@
+<script>
+// https://docs.mobiscroll.com/jquery/quick-install#
+import '../../utils/mobiscroll3/css/mobiscroll.javascript.min.css';
+import mobiscroll from '../../utils/mobiscroll3/js/mobiscroll.javascript.min';
+import $ from 'agile-ce';
+
+export default class DateTime{
+    
+    static get tag(){
+        return 'datetime';
+    }
+
+    static get observeAttributes(){
+        return ['value'];
+    }
+    
+
+    static init ($el) {
+        var type = $el.getAttribute('data-type') || 'date';
+        var formate = $el.getAttribute('data-formate');
+        var mode = $el.getAttribute('data-mode') || 'bottom';
+        var dateFormat = 'yyyy-mm-dd', timeFormat = 'HH:ii:ss';
+        if (formate) {
+        if (type === 'date') {
+            dateFormat = formate;
+        } else if (type === 'time') {
+            timeFormat = formate;
+        } else if (type === 'datetime') {
+            var formates = formate.split(' ');
+            if (formates[0]) dateFormat = formates[0];
+            if (formates[1]) timeFormat = formates[1];
+        }
+        }
+        return mobiscroll[type] && mobiscroll[type]($el, {
+            defaultValue: $el.value,
+            dateFormat: dateFormat,
+            timeFormat: timeFormat,
+            theme: 'ios',
+            display: mode,
+            lang: 'zh',
+            buttons: [
+                'set',
+                'clear',
+                'now',
+                'cancel'
+            ],
+            clearText: '清除',
+            onCancel(){
+                $($el).trigger('cancel');
+            },
+            onClear(){
+                $($el).trigger('clear');
+            }
+        });
+    }
+
+    init(){
+        var $el = this.$el, $input = this.$input,
+            placeholder = $el.getAttribute('placeholder'),
+            type = $el.getAttribute('type') || 'date',
+            formate = $el.getAttribute('formate'),
+            mode = $el.getAttribute('mode');
+        if (placeholder) $input.setAttribute('placeholder', placeholder);
+        $input.setAttribute('data-type', type);
+        if (formate) $input.setAttribute('data-formate', formate);
+        if (mode) $input.setAttribute('data-mode', mode);
+
+        $($input)
+            .on('change', function(){
+                $($el).trigger('change').attr('value', $input.value);
+            })
+            .on('clear', function(){
+                $($el).trigger('clear');
+            })
+            .on('cancel', function(){
+                $($el).trigger('cancel');
+            });
+    }
+    created () {
+        var $el = this.$el,
+            $input = $el.querySelector('input');
+        if(!$input) {
+            $input = document.createElement("input");
+            $el.appendChild($input);
+        }
+        this.$input = $input;
+        this.init();
+        this.$selector = DateTime.init($input);
+    }
+    detached(){
+        this.$selector && this.$selector.destroy();
+    }
+    attributeChanged(attrName, oldVal, newVal){
+        if(attrName==='value'){
+            this.$input.value = newVal;
+        }
+    }
+
+}
+
+
+
+</script>
+
+<style>
+
+    aui-datetime, aui-datetime > *{
+        background: transparent;
+    }
+    aui-datetime>input {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+</style>

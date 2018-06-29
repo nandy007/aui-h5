@@ -1,0 +1,16 @@
+
+<script>
+// http://www.minirefresh.com/minirefresh-doc/
+// import Refresher from '../refresher/Refresher.aui';
+
+// export default class Scroller extends Refresher{
+export default class Scroller{
+    static get tag(){
+        return 'scroller';
+    }
+}
+</script>
+
+<style type="less">
+@import url('./scroller.less');
+</style>

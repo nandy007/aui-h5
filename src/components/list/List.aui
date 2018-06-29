@@ -1,0 +1,15 @@
+<script>
+
+export default class List{
+    static get tag(){
+        return 'list';
+    }
+}
+
+</script>
+
+<style type="less">
+
+@import url('./list.less');
+
+</style>

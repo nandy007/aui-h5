@@ -1,0 +1,109 @@
+<script>
+
+import router from '../../utils/router';
+import config from '../../utils/config';
+
+import $ from 'agile-ce';
+
+const actionHandlers = {
+    back(){
+        history.go(-1);
+    },
+    goto($el){
+        const pageStr = $el.attr('href');
+        location.href = pageStr;
+    },
+    control($el){
+        const targetSelector = $el.attr('href'),
+            $target = $(targetSelector);
+
+        if(!$el.hasClass('active')){
+            
+            $el.addClass('active').siblings('.active').removeClass('active');
+            $target.addClass('active').siblings('.active').removeClass('active');
+        }
+        
+    },
+    toggle($el){
+
+        const targetSelector = $el.attr('target'),
+            $target = $(targetSelector);
+
+        $el.toggleClass('active');
+        $target.toggleClass('active');
+
+    }
+};
+
+export default class Action{
+    static get tag(){
+        return 'action';
+    }
+
+    static addHandler(...handlers){
+        handlers.forEach((handler) => {
+            if(actionHandlers[handler.type]){
+                console.warn('Action组件处理类型[ ' + handler.type + ' ]已存在，即将被覆盖');
+            }
+            actionHandlers[handler.type] = handler.action;
+        });
+    }
+
+    static handler(...args){
+        const $el = args.shift();
+        args.unshift(config.clickEvent);
+        args.push(function () {
+            const $t = $(this), type = $t.attr('type') || 'goto', handler = actionHandlers[type];
+            if(!handler){
+                console.warn('Action组件处理类型[ ' + type + ' ]不存在');
+            }else{
+                return handler($t);
+            }
+        });
+        $el.on(...args);
+    }
+
+    static listener(el){
+        if(el){
+            Action.handler($(el));
+        }else{
+            Action.handler($(document), '[action-control]');
+        }
+    }
+
+    init() {
+        Action.handler($(this.$el));
+    }
+
+    created () {
+        this.init();
+    }
+}
+
+</script>
+
+<style type="less">
+
+@import url('../../assets/less/common.less');
+
+aui-action, a{
+    
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    &.link{
+        color: @primary-color;
+    }
+}
+
+[action-target]{
+    display: none;
+}
+
+[action-target].active{
+    display: block;
+}
+
+</style>

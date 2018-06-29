@@ -1,0 +1,100 @@
+<ui>
+    <div class="toast anim" v-for="item in list" v-bind:class="{active: item.isActive, fadeIn:item.isActive, fadeOut:item.isOut}">
+        <span>{{item.msg}}</span>
+    </div>
+</ui>
+
+<script>
+
+import $ from 'agile-ce';
+
+let handler, isHandle = false;
+
+const handlerQueue = function (vm, isDo) {
+    if (!isDo && isHandle) {
+        return;
+    }
+    var list = vm.list;
+    if (list.length === 0) {
+        return isHandle = false;
+    }
+    isHandle = true;
+    list[0].isActive = true;
+    setTimeout(function () {
+        list[0].isOut = true;
+        setTimeout(function () {
+            var item = list.shift();
+            item.cb && item.cb.apply(vm)
+            handlerQueue(vm, true);
+        }, 250)
+    }, 2000)
+};
+
+
+export default class Toast{
+
+    static get tag(){
+        return 'toast';
+    }
+
+    static show (msg, cb) {
+        if (!Toast.$toast) {
+            Toast.$toast = $('<aui-toast></aui-toast>').appendTo(document.body);
+        }
+        var el = Toast.$toast[0], component = el.component, obj = component.$obj;
+        obj.list.push({ msg: msg, cb: cb, isActive: false, isOut: false });
+        handlerQueue(obj);
+    }
+
+    constructor(){
+        this.init();
+    }
+
+    init () {
+        this.$obj = {
+            list: []
+        };
+    }
+
+    created () {
+        this.$vm = $(this.$el).render(this.$obj);
+    }
+
+    detached () {
+        this.$vm && this.$vmdestroy();
+        delete Toast.$toast;
+    }
+}
+
+
+</script>
+
+<style type="less">
+aui-toast{
+    .toast {
+        display: none !important;
+        position: fixed;
+        left: 0px;
+        bottom: 100px;
+        width: 100%;
+        text-align: center;
+        z-index: 100;
+    }
+
+    .toast.active {
+        display: block !important;
+        pointer-events: none;
+    }
+
+    .toast>span {
+        display: inline-block;
+        background: #222;
+        color: #fff;
+        opacity: .7;
+        max-width: 300px;
+        padding: 8px 20px;
+        border-radius: 40px;
+        font-size: 13px;
+    }
+}
+</style>

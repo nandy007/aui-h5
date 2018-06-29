@@ -1,0 +1,95 @@
+<ui>
+    <div class="confirm-mask" v-bind:class="{active:isActive}">
+        <div class="confirm anim" v-bind:class="{bounceIn:confirmAnim, bounceOut:!confirmAnim}">
+            <div class="confirm-title">{{title}}</div>
+            <div class="confirm-content">{{content}}</div>
+            <div class="confirm-handler">
+                <a class="confirm-handler-ok" v-on:click="doOk">确定</a>
+                <a class="confirm-handler-cancel" v-on:click="doCancel">取消</a>
+            </div>
+        </div>
+    </div>
+</ui>
+
+
+<script>
+
+import $ from 'agile-ce';
+
+export default class Confirm{
+
+
+    static get tag(){
+        return 'confirm';
+    }
+
+    static show (options) {
+
+        if (!options) return;
+
+        if (!Confirm.$confirm) {
+            Confirm.$confirm = $('<aui-confirm></aui-confirm>').appendTo(document.body);
+        }
+        var el = Confirm.$confirm[0], component = el.component, obj = component.$obj;
+        obj._doOk = options.doOk;
+        obj._doCancel = options.doCancel;
+        obj.title = options.title;
+        obj.content = options.content;
+
+        obj.isActive = true;
+        obj.confirmAnim = true;
+    }
+
+    constructor(){
+        this.init();
+    }
+
+    init () {
+        var confirm = this;
+        this.$obj = {
+            isActive: false,
+            confirmAnim: false,
+            get title() {
+                return this._title || '提示';
+            },
+            set title(v) {
+                this._title = v;
+            },
+            content: '',
+            doOk: function () {
+                var obj = confirm.$obj;
+                obj.doClose();
+                obj._doOk && obj._doOk.apply(obj, arguments);
+            },
+            doCancel: function () {
+                var obj = confirm.$obj;
+                obj.doClose();
+                obj._doCancel && obj._doCancel.apply(obj, arguments);
+            },
+            doClose: function () {
+                var obj = confirm.$obj;
+                obj.confirmAnim = false;
+                setTimeout(function () {
+                    obj.isActive = false;
+                }, 300);
+            }
+        };
+    }
+    created () {
+        this.$vm = $(this.$el).render(this.$obj);
+    }
+    detached () {
+        this.$vm && this.$vm.destroy();
+        delete Confirm.$confirm;
+    }
+}
+
+
+</script>
+
+
+<style type="less">
+
+@import url('./confirm.less');
+
+</style>

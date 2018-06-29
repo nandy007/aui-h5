@@ -1,0 +1,15 @@
+<script>
+export default class Button{
+    static get tag(){
+        return 'button';
+    }
+}
+
+</script>
+
+<style type="less">
+
+@import url('./button.less');
+@import url('./badges.less');
+
+</style>
