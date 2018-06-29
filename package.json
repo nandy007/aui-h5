@@ -48,7 +48,7 @@
     "webpack-dev-server": "^2.8.2"
   },
   "dependencies": {
-    "agile-ce": "^0.4.7",
+    "agile-ce": "^0.4.8",
     "agile-ui": "^0.2.8",
     "aui-loader": "^0.3.5",
     "extract-text-webpack-plugin": "^3.0.2",

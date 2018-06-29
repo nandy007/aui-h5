@@ -80,6 +80,8 @@ export default class Action{
     }
 }
 
+export { router };
+
 </script>
 
 <style type="less">
