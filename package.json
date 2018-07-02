@@ -1,6 +1,6 @@
 {
   "name": "aui-h5",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "agile ui的html版组件",
   "main": "src/index.js",
   "scripts": {

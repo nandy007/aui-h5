@@ -5,32 +5,44 @@ import config from '../../utils/config';
 
 import $ from 'agile-ce';
 
+function initEl($el){
+    if(typeof $el==='string'){
+        $el = $(`<i href="${$el}"></i>`);
+    }
+    return $el;
+}
+
+function getTarget(targetSelector, context){
+    return targetSelector ? ( context ? $(context).find(targetSelector) : $(targetSelector) ) : null;
+}
+
 const actionHandlers = {
     back(){
         history.go(-1);
     },
     goto($el){
+        $el = initEl($el);
         const pageStr = $el.attr('href');
         location.href = pageStr;
     },
-    control($el){
+    control($el, context){
+        $el = initEl($el);
         const targetSelector = $el.attr('href'),
-            $target = $(targetSelector);
+            $target = getTarget(targetSelector, context);
 
         if(!$el.hasClass('active')){
-            
             $el.addClass('active').siblings('.active').removeClass('active');
-            $target.addClass('active').siblings('.active').removeClass('active');
+            if($target) $target.addClass('active').siblings('.active').removeClass('active');
         }
         
     },
-    toggle($el){
-
-        const targetSelector = $el.attr('target'),
-            $target = $(targetSelector);
+    toggle($el, context){
+        $el = initEl($el);
+        const targetSelector = $el.attr('href'),
+            $target = getTarget(targetSelector, context);
 
         $el.toggleClass('active');
-        $target.toggleClass('active');
+        if($target) $target.toggleClass('active');
 
     }
 };
@@ -49,15 +61,19 @@ export default class Action{
         });
     }
 
-    static handler(...args){
+    static get handler(){
+        return actionHandlers;
+    }
+
+    static bindHandler(...args){
         const $el = args.shift();
         args.unshift(config.clickEvent);
         args.push(function () {
-            const $t = $(this), type = $t.attr('type') || 'goto', handler = actionHandlers[type];
+            const $t = $(this), type = $t.attr('type') || 'goto', context = $t.attr('context'), handler = actionHandlers[type];
             if(!handler){
                 console.warn('Action组件处理类型[ ' + type + ' ]不存在');
             }else{
-                return handler($t);
+                return handler($t, context);
             }
         });
         $el.on(...args);
@@ -65,14 +81,14 @@ export default class Action{
 
     static listener(el){
         if(el){
-            Action.handler($(el));
+            Action.bindHandler($(el));
         }else{
-            Action.handler($(document), '[action-control]');
+            Action.bindHandler($(document), '[action-control]');
         }
     }
 
     init() {
-        Action.handler($(this.$el));
+        Action.bindHandler($(this.$el));
     }
 
     created () {
