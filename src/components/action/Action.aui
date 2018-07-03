@@ -111,9 +111,6 @@ aui-action, a{
     
     cursor: pointer;
 
-    display: flex;
-    align-items: center;
-
     &.link{
         color: @primary-color;
     }
