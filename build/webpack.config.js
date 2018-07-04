@@ -15,7 +15,7 @@ module.exports = {
         path: path.join(rootPath, 'test/public/build'),
         //filename: "bundle-[hash].js"
         filename: "aui.h5.js",
-        publicPath: "build/",
+        publicPath: "/build/",
     },
     devtool: 'none',
     devServer: {

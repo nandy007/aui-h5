@@ -14,6 +14,7 @@ const config = require('./webpack.config'),
 
 const outputPath = path.join(__dirname, '../dist/' + pkg.version);
 config.output.path = outputPath;
+config.output.publicPath = '';
 
 const entry = [], compPath = path.join(__dirname, '../src/components');
 glob.sync('**/*.aui', {cwd: compPath}).forEach((file) => {
