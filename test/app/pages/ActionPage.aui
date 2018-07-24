@@ -1,0 +1,141 @@
+<ui>
+    <aui-header>
+        <aui-titlebar>
+            <left-area>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i></aui-action>
+            </left-area>
+            <caption-area>
+                <aui-text>Action Handler</aui-text>
+            </caption-area>
+        </aui-titlebar>
+        <aui-tabbar class="tabbar tabbar-line animated">
+            <tabbar-cell class="active" href="#toggle">
+                <label class="tab-label">toggle</label>
+            </tabbar-cell>
+            <tabbar-cell href="#control">
+                <label class="tab-label">control</label>
+            </tabbar-cell>
+            <tabbar-cell href="#other">
+                <label class="tab-label">other</label>
+            </tabbar-cell>
+        </aui-tabbar>
+    </aui-header>
+
+    <aui-scroller id="toggle" class="content active" action-target style="position: absolute; top: 90px; right: 0px; bottom: 0px;left: 0px;padding: 10px;">
+
+        <p class="content-tips">toggle模式为一个控制器控制一个组件，状态反转，不影响其他同类组件</p>
+
+        <aui-list>
+            <aui-action class="list-cell" href="#popular" type="toggle">
+                <a>
+                    常用数据 <i class="icon auicon icon-arrowdown"></i>
+                </a>
+            </aui-action>
+            <list-cell id="popular" action-target>
+                您打开了常用数据
+            </list-cell>
+            <aui-action class="list-cell" href="#simple" type="toggle">
+                <a>
+                    简单数据 <i class="icon auicon icon-arrowdown"></i>
+                </a>
+            </aui-action>
+            <list-cell id="simple" action-target>
+                您打开了简单数据
+            </list-cell>
+        </aui-list>
+
+        
+    </aui-scroller>
+
+    <aui-scroller id="control" class="content" action-target style="position: absolute; top: 90px; right: 0px; bottom: 0px;left: 0px;padding: 10px;">
+
+        <p class="content-tips">control模式为被控制的组件显示，同组其他组件隐藏</p>
+
+        <aui-list>
+            <aui-action class="list-cell" href="#popular1" type="control">
+                <a>
+                    常用数据 <i class="icon auicon icon-arrowdown"></i>
+                </a>
+            </aui-action>
+            <list-cell id="popular1" action-target>
+                您打开了常用数据，简单数据隐藏
+            </list-cell>
+            <aui-action class="list-cell" href="#simple1" type="control">
+                <a>
+                    简单数据 <i class="icon auicon icon-arrowdown"></i>
+                </a>
+            </aui-action>
+            <list-cell id="simple1" action-target>
+                您打开了简单数据，常用数据隐藏
+            </list-cell>
+        </aui-list>
+        
+    </aui-scroller>
+    <aui-scroller id="other" class="content" action-target style="position: absolute; top: 90px; right: 0px; bottom: 0px;left: 0px;padding: 10px;">
+
+        <p class="content-tips">除此之外，默认type为goto（跳转页面，实际调用location.href），内置type还可以是back（页面返回，相当于执行history.go(-1)）</p>
+
+        <p class="content-tips">开发者可以自定义或者重写原有type，只需要调用Action.addHandler({type:function handler($el, context){}})即可</p>
+
+        
+        
+    </aui-scroller>
+</ui>
+
+
+<script>
+import '@auicomp/header/Header.aui';
+import '@auicomp/button/Button.aui';
+import '@auicomp/scroller/Scroller.aui';
+import '@auicomp/titlebar/Titlebar.aui';
+import '@auicomp/button/Button.aui';
+import '@auicomp/tabbar/Tabbar.aui';
+
+import Action from '@auicomp/action/Action.aui';
+
+import $ from 'agile-ce';
+
+export default class ActionPage{
+    
+    static get tag(){
+        return 'actionpage';
+    }
+
+    created(){
+
+        const $el = $(this.$el);
+
+        Action.listener($el.find('tabbar-cell').attr('type', 'control'));
+
+        this.$elvm = $el.render({
+            list: [
+                {
+                    title: '第一项'
+                },
+                {
+                    title: '第二项'
+                }
+            ]
+        })
+    }
+
+    detached(){
+        this.$elvm && this.$elvm.destroy();
+    }
+}
+
+</script>
+
+<style>
+[type="toggle"].active .icon-arrowdown::before,
+[type="control"].active .icon-arrowdown::before{
+    content: '\e694';
+}
+.content-tips{
+    font-size: 13px;
+    color: #7F8C8D;
+    margin: 10px;
+}
+</style>
+
+

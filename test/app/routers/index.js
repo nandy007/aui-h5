@@ -10,6 +10,7 @@ import DialogPage from '../pages/DialogPage.aui';
 import RefresherPage from '../pages/RefresherPage.aui';
 import SwiperPage from '../pages/SwiperPage.aui';
 import FormPage from '../pages/FormPage.aui';
+import ActionPage from '../pages/ActionPage.aui';
 
 
  
@@ -57,6 +58,10 @@ router.add([
     {
         path: '/form',
         component: FormPage
+    },
+    {
+        path: '/action',
+        component: ActionPage
     }
 ]);
 

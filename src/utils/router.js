@@ -258,7 +258,22 @@ Router.prototype = {
         if($target){
             if(!isLast) $target.querySelector('aui-page').component.doStrigger();
         }else{
-            $target = document.createElement('aui-' + Component.tag);
+            if(Component.tag){
+                $target = document.createElement('aui-' + Component.tag);
+            }else if(typeof Component === 'string'){
+                var outer = document.createElement('div');
+                outer.innerHTML = Component;
+                $target = outer.childNodes[0];
+            }else if(Component instanceof HTMLElement){
+                $target = Component;
+            }else{
+                try{
+                    $target = Component[0];
+                }catch(e){
+                    console.log('找不到组件');
+                }
+            }
+            if(!$target) return;
             $target.pagePath = pagePath;
             if(isCache) $target.isCache = true;
             $parent.appendChild($target);

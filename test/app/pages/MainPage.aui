@@ -55,6 +55,11 @@
                     表单组件 <i class="icon auicon icon-arrowright"></i>
                 </aui-action>
             </list-cell>
+            <list-cell>
+                <aui-action href="#/action">
+                    Action组件 <i class="icon auicon icon-arrowright"></i>
+                </aui-action>
+            </list-cell>
         </aui-list>
     </aui-scroller>
 </ui>

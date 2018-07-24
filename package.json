@@ -1,11 +1,12 @@
 {
   "name": "aui-h5",
-  "version": "0.1.5",
-  "description": "agile ui的html版组件",
+  "version": "0.1.7",
+  "description": "Agile UI的HTML5版组件",
   "main": "src/index.js",
   "scripts": {
     "test": "webpack-dev-server --progress --colors --config ./build/webpack.config.test.js",
-    "build": "webpack --progress --colors --config ./build/webpack.config.build.js"
+    "build": "cross-env MODE=amd webpack --progress --colors --config ./build/webpack.config.build.js",
+    "build:noamd": "cross-env MODE=normal webpack --progress --colors --config ./build/webpack.config.build.js"
   },
   "repository": {
     "type": "git",
@@ -51,7 +52,8 @@
   },
   "dependencies": {
     "agile-ce": "^0.4.8",
-    "aui-loader": "^0.3.6",
+    "aui-loader": "^0.3.8",
+    "cross-env": "^5.2.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "minirefresh": "^2.0.2",
     "swiper": "^4.3.3"

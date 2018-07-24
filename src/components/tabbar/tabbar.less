@@ -229,10 +229,10 @@
 	color:@tabbar-rect-color;
 	background-color: @tabbar-rect-bg;
 	max-width:96%;
-	border: 1px solid @tabbar-rect-border;
+	border: @tabbar-rect-border;
 	.tab, tabbar-cell{
 		height:24px;
-		border-right:1px solid @tabbar-rect-border;
+		border-right:  @tabbar-rect-border;
 	}
 	.tab:nth-last-of-type(1), tabbar-cell:nth-last-of-type(1){
 		border-right:0;
@@ -258,26 +258,15 @@
 .tabbar-round{
     
     background-color: transparent;
-    border: none;
+	
+	border-radius: @tabbar-round-radius;
 
     .tab, tabbar-cell{
-        border: 1px solid @primary-color;
-        height: 32px;
-    }
-
-	.tab:first-child, tabbar-cell:first-child{
-        border-top-left-radius: @tabbar-round-radius;
-        border-bottom-left-radius: @tabbar-round-radius;
-    }
-    
-    .tab:last-child, tabbar-cell:last-child{
-        border-top-right-radius: @tabbar-round-radius;
-        border-bottom-right-radius: @tabbar-round-radius;
-    }
-    
-    .tab, tabbar-cell{
-        background-color: @primary-color;
-    }
+        border: none;
+		height: 32px;
+		background-color: @primary-color;
+	}
+	
 }
 
 //滑块形tabbar-lump

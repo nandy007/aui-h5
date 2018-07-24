@@ -1,6 +1,6 @@
 @import url('../../assets/less/common.less');
 
-aui-list {
+aui-list, .list {
     display: block;
     padding-left: 0;
     margin-top: 0;
@@ -12,7 +12,7 @@ aui-list {
 }
   
   
-list-cell {
+list-cell, .list-cell {
     display: block;
     position: relative;
     padding: 11px 65px 11px 15px;
@@ -45,8 +45,9 @@ list-cell {
 }
   
   
-list-cell,
-list-cell > a , list-cell > aui-action{
+list-cell, .list-cell,
+list-cell > a , .list-cell > a , 
+list-cell > aui-action, .list-cell > aui-action{
 
     text-decoration: none;
 
@@ -73,6 +74,9 @@ list-cell > a , list-cell > aui-action{
 }
   
   
-.content > aui-list:first-child {
-    margin-top: 15px;
+.content {
+    > aui-list:first-child,
+    > .list:first-child {
+        margin-top: 15px;
+    }
 }
