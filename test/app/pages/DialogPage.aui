@@ -26,7 +26,7 @@ import Toast from '@auicomp/toast/Toast.aui';
 import Popup from '@auicomp/popup/Popup.aui';
 import Actionsheet from '@auicomp/actionsheet/Actionsheet.aui';
 import Loading from '@auicomp/loading/Loading.aui';
-import $ from 'agile-ce';
+// import $ from 'agile-ce';
 
 export default class DialogPage{
     

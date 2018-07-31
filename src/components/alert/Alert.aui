@@ -13,7 +13,7 @@
 
 <script>
 
-import $ from 'agile-ce';
+// import $ from 'agile-ce';
 
 export default class Alert{
 

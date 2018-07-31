@@ -2,7 +2,7 @@
 // https://docs.mobiscroll.com/jquery/quick-install#
 import '../../utils/mobiscroll3/css/mobiscroll.javascript.min.css';
 import mobiscroll from '../../utils/mobiscroll3/js/mobiscroll.javascript.min';
-import $ from 'agile-ce';
+// import $ from 'agile-ce';
 
 export default class DateTime{
     

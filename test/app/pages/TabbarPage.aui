@@ -341,7 +341,7 @@ import '@auicomp/tabbar/Tabbar.aui';
 
 import Action from '@auicomp/action/Action.aui';
 
-import $ from 'agile-ce';
+// import $ from 'agile-ce';
 
 export default class TabbarPage{
     

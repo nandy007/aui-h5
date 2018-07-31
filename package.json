@@ -1,6 +1,6 @@
 {
   "name": "aui-h5",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "description": "Agile UI的HTML5版组件",
   "main": "src/index.js",
   "scripts": {
@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/nandy007/aui-h5#readme",
   "devDependencies": {
+    "agile-ce": "^0.4.8",
+    "aui-loader": "^0.3.8",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -51,8 +53,6 @@
     "webpack-dev-server": "^2.8.2"
   },
   "dependencies": {
-    "agile-ce": "^0.4.8",
-    "aui-loader": "^0.3.8",
     "cross-env": "^5.2.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "minirefresh": "^2.0.2",

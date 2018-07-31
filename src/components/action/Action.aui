@@ -3,7 +3,7 @@
 import router from '../../utils/router';
 import config from '../../utils/config';
 
-import $ from 'agile-ce';
+// import $ from 'agile-ce';
 
 function initEl($el){
     if(typeof $el==='string'){
