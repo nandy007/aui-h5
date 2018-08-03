@@ -8,10 +8,11 @@
                 <aui-text>Refresher</aui-text>
             </caption-area>
         </aui-titlebar>
+        <div class="demo-note">此处列表刷新使用的是内置的MVVM框架</div>
     </aui-header>
 
-    <aui-refresher style="position:absolute; top:45px; right: 0px; bottom: 0px; left: 0px; overflow: hidden;">
-        <div style="padding: 20px 0px;">
+    <aui-refresher style="position:absolute; top:110px; right: 0px; bottom: 0px; left: 0px; overflow: hidden;">
+        <div>
             <aui-list>
                 <list-cell v-for="item in list">
                     <a>
@@ -88,6 +89,10 @@ export default class RefresherPage{
 
             }, 2000);
         });
+    }
+
+    detached(){
+        this.$vm && this.$vm.destroy();
     }
 }
 

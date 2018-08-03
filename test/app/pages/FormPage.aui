@@ -11,7 +11,7 @@
     </aui-header>
 
 
-    <aui-scroller class="content" style="position: absolute; top: 45px; right: 0px; bottom: 0px;left: 0px;text-align: center;padding: 10px;">
+    <aui-scroller class="content" style="position: absolute; top: 45px; right: 0px; bottom: 0px;left: 0px;text-align: center;">
 
         <div class="demo-note">
             此示例使用的是mobiscroll
@@ -313,15 +313,5 @@ export default class FormPage{
         -webkit-box-sizing: content-box;
         -moz-box-sizing: content-box;
         box-sizing: content-box;
-    }
-
-    .demo-note {
-        background: #fff75d;
-        margin: 10px 0px;
-        padding: 10px;
-        color: #7b7b7b;
-        text-align: center;
-        text-shadow: none;
-        font-size: 14px;
     }
 </style>

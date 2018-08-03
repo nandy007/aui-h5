@@ -29,6 +29,16 @@ export default class Frame{
     display: block;
     height: 100%;
 }
+
+.demo-note {
+    background: #fff75d;
+    margin: 10px 0px;
+    padding: 10px;
+    color: #7b7b7b;
+    text-align: center;
+    text-shadow: none;
+    font-size: 14px;
+}
 </style>
 
 
