@@ -1,0 +1,21 @@
+<ui>
+   <div>test</div>
+</ui>
+
+
+<script>
+
+export default class Test{
+    
+    static get tag(){
+        return 'test';
+    }
+
+    created(){
+        // 
+    }
+}
+
+</script>
+
+
