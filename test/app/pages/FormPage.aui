@@ -20,140 +20,141 @@
         </div>
         <form id="demo" style="display:none" mbsc-form>
             <div class="mbsc-form-group">
-            <div class="mbsc-form-group-title">datetime组件</div>
-            <label>
-                <aui-datetime style="padding:20px;display:block;background:#fff;" type="date" value="2016-12-01" placeholder="请输入日期"></aui-datetime>
-            </label>
+                <div class="mbsc-form-group-title">datetime组件</div>
+                <label>
+                    <aui-datetime style="padding:20px;display:block;background:#fff;" type="date" value="2016-12-01" placeholder="请输入日期"></aui-datetime>
+                </label>
             </div>
             <div class="mbsc-form-group">
-            <div class="mbsc-form-group-title">Sign Up</div>
+                <div class="mbsc-form-group-title">Sign Up</div>
 
-            <label>
-            <input name="username" type="text" placeholder="Username" minlength="2" required data-icon="user4">
-        </label>
+                <label>
+                    <input name="username" type="text" placeholder="Username" minlength="2" required data-icon="user4">
+                </label>
 
-            <label>
-            <input name="email" type="email" placeholder="Email" required data-icon="ion-ios7-email">
-        </label>
+                <label>
+                    <input name="email" type="email" placeholder="Email" required data-icon="ion-ios7-email">
+                </label>
 
-            <label>
-            <input name="password" type="password" placeholder="Password" minlength="6" required data-icon="lock2" data-password-toggle="true">
-        </label>
+                <label>
+                    <input name="password" type="password" placeholder="Password" minlength="6" required data-icon="lock2" data-password-toggle="true">
+                </label>
             </div>
             <div class="mbsc-form-group">
-            <div class="mbsc-form-group-title">Personal data</div>
+                <div class="mbsc-form-group-title">Personal data</div>
 
-            <label>
-            <input name="firstname" type="text" placeholder="First name" required data-icon="user4">
-        </label>
+                <label>
+                    <input name="firstname" type="text" placeholder="First name" required data-icon="user4">
+                </label>
 
-            <label>
-            <input name="lastname" type="text" placeholder="Last name" required data-icon="empty">
-        </label>
+                <label>
+                    <input name="lastname" type="text" placeholder="Last name" required data-icon="empty">
+                </label>
 
-            <label>
-            <input name="birthday" id="md-birthday" type="text" placeholder="Birthday" required data-icon="calendar"> 
-        </label>
+                <label>
+                    <input name="birthday" id="md-birthday" type="text" placeholder="Birthday" required data-icon="calendar"> 
+                </label>
 
-            <label>
-            <input name="phone" class="md-phone" type="tel" placeholder="Phone" required data-icon="phone">
-        </label>
+                <label>
+                    <input name="phone" class="md-phone" type="tel" placeholder="Phone" required data-icon="phone">
+                </label>
 
-            <label>
-            <select id="md-country" name="country" required data-icon="location">
-            <optgroup label="A">
-                <option selected disabled></option>
-                <option value="1">Afganistan</option>
-                <option value="2">Albania</option>
-                <option value="3">Algeria</option>
-                <option value="4">Argentina</option>
-                <option value="5">Australia</option>
-                <option value="6">Austria</option>
-                <option value="7">Azerbaijan</option>
-            </optgroup>
-            <optgroup label="B">
-                <option value="8">Bahamas</option>
-                <option value="9">Bahrain</option>
-                <option value="10">Bolivia</option>
-                <option value="11">Brazil</option>
-                <option value="12">Bulgaria</option>
-            </optgroup>
-            <!-- Showing partial data. Download full source. -->
-            </select>
-        </label>
+                <label>
+                    <select id="md-country" name="country" required data-icon="location">
+                        <optgroup label="A">
+                            <option selected disabled></option>
+                            <option value="1">Afganistan</option>
+                            <option value="2">Albania</option>
+                            <option value="3">Algeria</option>
+                            <option value="4">Argentina</option>
+                            <option value="5">Australia</option>
+                            <option value="6">Austria</option>
+                            <option value="7">Azerbaijan</option>
+                        </optgroup>
+                        <optgroup label="B">
+                            <option value="8">Bahamas</option>
+                            <option value="9">Bahrain</option>
+                            <option value="10">Bolivia</option>
+                            <option value="11">Brazil</option>
+                            <option value="12">Bulgaria</option>
+                        </optgroup>
+                        <!-- Showing partial data. Download full source. -->
+                    </select>
+                </label>
 
-            <label>
-            <input name="address" type="text" placeholder="Address" data-icon="empty">
-        </label>
+                <label>
+                    <input name="address" type="text" placeholder="Address" data-icon="empty">
+                </label>
 
-            <label>
-            <input name="company" type="text" placeholder="Company" data-icon="office">
-        </label>
+                <label>
+                    <input name="company" type="text" placeholder="Company" data-icon="office">
+                </label>
 
-            <label>
-            <input name="title" type="text" placeholder="Title" data-icon="empty">
-        </label>
+                <label>
+                    <input name="title" type="text" placeholder="Title" data-icon="empty">
+                </label>
 
-            <label>
-            <textarea name="about" placeholder="About me" data-icon="line-note"></textarea>
-        </label>
+                <label>
+                    <textarea name="about" placeholder="About me" data-icon="line-note"></textarea>
+                </label>
 
-            <label>
-            <input type="text" placeholder="Website" data-icon="globe">
-        </label>
+                <label>
+                    <input type="text" placeholder="Website" data-icon="globe">
+                </label>
+            </div>
+
+            <div class="mbsc-form-group">
+                <div class="mbsc-form-group-title">Gender</div>
+
+                <label>
+                    Male
+                    <input type="radio" name="gender" checked>
+                </label>
+
+                <label>
+                    Female
+                    <input type="radio" name="gender">
+                </label>
             </div>
             <div class="mbsc-form-group">
-            <div class="mbsc-form-group-title">Gender</div>
+                <div class="mbsc-form-group-title">Settings</div>
 
-            <label>
-            Male
-            <input type="radio" name="gender" checked>
-        </label>
-
-            <label>
-            Female
-            <input type="radio" name="gender">
-        </label>
+                <label>
+                    Send me marketing e-mail
+                    <input data-role="switch" name="news" value="0" type="checkbox">
+                </label>
             </div>
             <div class="mbsc-form-group">
-            <div class="mbsc-form-group-title">Settings</div>
+                <div class="mbsc-form-group-title">E-mail Categories</div>
 
-            <label>
-            Send me marketing e-mail
-            <input data-role="switch" name="news" value="0" type="checkbox">
-        </label>
-            </div>
-            <div class="mbsc-form-group">
-            <div class="mbsc-form-group-title">E-mail Categories</div>
+                <label>
+                    Baby
+                    <input name="cat1" type="checkbox">
+                </label>
+                <label>
+                    Beauty
+                    <input name="cat2" type="checkbox">
+                </label>
+                <label>
+                    Books
+                    <input name="cat3" type="checkbox">
+                </label>
+                <label>
+                    Clothing & Accessories
+                    <input name="cat4" type="checkbox">
+                </label>
+                <label>
+                    Computer & Accessories
+                    <input name="cat5" type="checkbox">
+                </label>
+                <label>
+                    Electronics
+                    <input name="cat6" type="checkbox">
+                </label>
 
-            <label>
-            Baby
-            <input name="cat1" type="checkbox">
-        </label>
-            <label>
-            Beauty
-            <input name="cat2" type="checkbox">
-        </label>
-            <label>
-            Books
-            <input name="cat3" type="checkbox">
-        </label>
-            <label>
-            Clothing & Accessories
-            <input name="cat4" type="checkbox">
-        </label>
-            <label>
-            Computer & Accessories
-            <input name="cat5" type="checkbox">
-        </label>
-            <label>
-            Electronics
-            <input name="cat6" type="checkbox">
-        </label>
-
-            <div class="mbsc-btn-group">
-                <button data-icon="checkmark" type="submit">Sign Up</button>
-            </div>
+                <div class="mbsc-btn-group">
+                    <button data-icon="checkmark" type="submit">Sign Up</button>
+                </div>
             </div>
         </form>
 
