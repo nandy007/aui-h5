@@ -45,6 +45,7 @@ if(mode==='amd'){
         // 引入requirejs后生效，可直接作为aui文件的loader
         !(function(){
             if(typeof define==="undefined"){return;}
+            window.__AGILE_UI_NAME__ = 'agile-ui';
             ${loaderText}
         })();
         `});
