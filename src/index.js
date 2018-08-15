@@ -1,4 +1,7 @@
 
+
+window.__AGILE_UI_NAME__ = 'agile-ui';
+
 require('agile-ui');
 
 module.exports = {
