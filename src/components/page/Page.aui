@@ -24,7 +24,7 @@
 
         doStrigger() {
             var $root = document.querySelector('aui-page');
-            if ($root !== this.$el) $root.component.trigger(this.$el);
+            if ($root && $root !== this.$el) $root.component.trigger(this.$el);
         }
 
         created() {

@@ -2,7 +2,7 @@
     <aui-header>
         <aui-titlebar>
             <left-area>
-                <aui-action type="back"><i class="icon auicon icon-arrowleft"></i></aui-action>
+                <aui-action type="back"><i class="icon auicon icon-arrowleft-fill"></i></aui-action>
             </left-area>
             <caption-area>
                 <aui-text>Tabbar</aui-text>

@@ -15,8 +15,8 @@ const config = require('./webpack.config'),
 const outputPath = path.join(__dirname, '../dist/' + pkg.version);
 config.output.path = outputPath;
 config.output.publicPath = '';
-
-const entry = [], compPath = path.join(__dirname, '../src/components');
+const mode = process.env.MODE || 'amd';
+const entry = [path.join(__dirname, '../src/index.'+mode)], compPath = path.join(__dirname, '../src/components');
 glob.sync('**/*.aui', {cwd: compPath}).forEach((file) => {
     entry.push(path.join(compPath, file));
 });
@@ -37,20 +37,7 @@ plugins.push(
         minimize: true
     })
 );
-const mode = process.env.MODE || 'amd';
-if(mode==='amd'){
-    plugins.push((function(){
-        var loaderText = fs.readFileSync(path.join(__dirname, '../node_modules/aui-loader/aui.js'), 'utf8');
-        return new webpack.BannerPlugin({raw: true, exclude: /.*.css/, banner: `
-        // 引入requirejs后生效，可直接作为aui文件的loader
-        !(function(){
-            if(typeof define==="undefined"){return;}
-            window.__AGILE_UI_NAME__ = 'agile-ui';
-            ${loaderText}
-        })();
-        `});
-    })());
-}
+
 
 plugins.push(new webpack.BannerPlugin(`${pkg.description}
 Version   : ${pkg.version}.${new Date().getTime()}
