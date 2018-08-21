@@ -107,19 +107,19 @@ Router.prototype = {
         $el.dispatchEvent(evt);
     },
     _trigger: function ($show, $hide) {
-        $show && this._dispatchEvent($show, 'enter');
-        $hide && this._dispatchEvent($hide, 'leave');
+        $show && $($show).trigger('enter');
+        $hide && $($hide).trigger('leave');
     },
     _afterAnim: function ($page, $target, $cur) {
         this._trigger($target, $cur);
         if ($cur) {
             if ($cur.isCache) {
-                $cur.className = '';
+                $($cur).removeClass('active');
             } else {
                 $page.removeChild($cur);
             }
         }
-        $target.className = 'active';
+        $($target).addClass('active');
     },
     _getDeepRules: function(pagePath, routers, paths, deep, noState){
         for (var i = 0, len = routers.length; i < len; i++) {
@@ -250,7 +250,7 @@ Router.prototype = {
             }
             if($child.pagePath===pagePath){
                 $target = $child;
-            }else if(($child.className||'').indexOf('active')>-1){
+            }else if($($child).hasClass('active')){
                 $cur = $child;
             }
         }
