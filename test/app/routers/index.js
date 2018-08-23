@@ -25,7 +25,8 @@ router.add([
     },
     {
         path: '/list',
-        component: ListPage
+        component: ListPage,
+        cache: true
     },
     {
         path: '/button',

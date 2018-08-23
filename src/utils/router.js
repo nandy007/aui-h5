@@ -43,7 +43,13 @@ Router.prototype = {
         this._history = [];
         this.initHandler();
     },
+    _initEvent: function(){
+        if(this.isInit) return;
+        window.addEventListener('hashchange', hashHandler, false);
+        this.isInit = true;
+    },
     add: function () {
+        this._initEvent();
         var _routers = this._routers;
         if (arguments.length === 1) {
             var rules = arguments[0];
@@ -185,7 +191,12 @@ Router.prototype = {
                 Component = curRule.component.default || curRule.component;
             }
             var rulesLength = pageRules.length;
-            _this._doTransition(fullPath, $page, pagePath, Component, curRule, rulesLength===0, noState);
+            var transPage = {
+                fullPath: fullPath,
+                pagePath: pagePath,
+                isForce: pageInfo.isForce
+            };
+            _this._doTransition(transPage, $page, Component, curRule, rulesLength===0, noState);
             if(rulesLength===0) {
                 if (!noState) _this._add2History(pageInfo);
                 $root.component.on(null);
@@ -202,8 +213,9 @@ Router.prototype = {
     _add2History: function (pageInfo) {
         window.history.pushState(pageInfo, '', '#'+pageInfo.path);
     },
-    _doTransition: function(fullPath, $parent, pagePath, Component, curRule, isLast, noState){
-        var transitionObj = this._getTransition($parent, pagePath, Component, curRule, isLast),
+    _doTransition: function(transPage, $parent, Component, curRule, isLast, noState){
+        var fullPath = transPage.fullPath, 
+            transitionObj = this._getTransition($parent, transPage, Component, curRule, isLast),
             $target = transitionObj.$target, $cur = transitionObj.$cur,
             transition = $parent.getAttribute('transition'), isTansition = transition&&isLast;
         var _this = this;
@@ -232,16 +244,18 @@ Router.prototype = {
             _this._afterAnim($parent, $target, $cur);
         }
     },
-    _getHashQueryStr: function(){
-        var hash = location.hash || '', hashs = hash.split('?');
+    _getHashQueryStr: function(fullPath){
+        var hash = fullPath || location.hash || '', hashs = hash.split('?');
         if(hashs.length>1) return '?'+hashs[1];
         return '';
     },
-    _getTransition: function($parent, pagePath, Component, curRule, isLast){
+    _getTransition: function($parent, transPage, Component, curRule, isLast){
         var $target, $cur,
             $children = $parent.childNodes, isCache = !!curRule.cache;
 
-        if(isLast) pagePath += location.hash;//this._getHashQueryStr();
+        var fullPath = transPage.fullPath, pagePath = transPage.pagePath, isForce = transPage.isForce;
+
+        if(isLast) pagePath = fullPath;
 
         for(var i=0, len=$children.length;i<len;i++){
             var $child = $children[i];
@@ -255,8 +269,14 @@ Router.prototype = {
             }
         }
 
+        if(isLast&&isForce&&$target){
+            $($target).remove();
+            $target = null;
+        }
+        
         if($target){
-            if(!isLast) $target.querySelector('aui-page').component.doStrigger();
+            var $page = $target.querySelector('aui-page');
+            if($page && !isLast) $page.component.doStrigger();
         }else{
             if(Component.tag){
                 $target = document.createElement('aui-' + Component.tag);
@@ -320,8 +340,6 @@ function hashHandler() {
     var hash = location.hash || '/', query = hash.replace('#', '');
     router.go(query, true);
 }
-
-window.addEventListener('hashchange', hashHandler, false);
 
 
 module.exports = router;
