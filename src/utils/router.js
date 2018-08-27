@@ -190,15 +190,8 @@ Router.prototype = {
             }else{
                 Component = curRule.component.default || curRule.component;
             }
-            
-            var rulesLength = pageRules.length;
-            if(rulesLength===0) {
-                if (!noState) _this._add2History(pageInfo);
-                $root.component.on(null);
-                var $near = $page&&$page.querySelector('aui-page');
-                if($near) $near.innerHTML = '';
-            }
 
+            var rulesLength = pageRules.length;
 
             var transPage = {
                 fullPath: fullPath,
@@ -207,7 +200,15 @@ Router.prototype = {
                 nextPage: nextPage
             };
             _this._doTransition(transPage, $page, Component, curRule, rulesLength===0, noState);
+
+            if(rulesLength===0) {
+                $root.component.on(null);
+                var $near = (nextPage&&$(nextPage)[0]) || ($page&&$page.querySelector('aui-page'));
+                if($near) $near.innerHTML = '';
+            }
         };
+
+        if (!noState) this._add2History(pageInfo);
 
         $root.component.on(handler);
 
