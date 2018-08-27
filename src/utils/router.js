@@ -180,7 +180,7 @@ Router.prototype = {
 
             if(pageRules.length===0) return;
 
-            var curRule = pageRules.shift(), pagePath = curRule.path.toString();
+            var curRule = pageRules.shift(), pagePath = curRule.path.toString(), nextPage = curRule.nextPage;
 
             var Component;
 
@@ -190,19 +190,23 @@ Router.prototype = {
             }else{
                 Component = curRule.component.default || curRule.component;
             }
+            
             var rulesLength = pageRules.length;
-            var transPage = {
-                fullPath: fullPath,
-                pagePath: pagePath,
-                isForce: pageInfo.isForce
-            };
-            _this._doTransition(transPage, $page, Component, curRule, rulesLength===0, noState);
             if(rulesLength===0) {
                 if (!noState) _this._add2History(pageInfo);
                 $root.component.on(null);
                 var $near = $page&&$page.querySelector('aui-page');
                 if($near) $near.innerHTML = '';
             }
+
+
+            var transPage = {
+                fullPath: fullPath,
+                pagePath: pagePath,
+                isForce: pageInfo.isForce,
+                nextPage: nextPage
+            };
+            _this._doTransition(transPage, $page, Component, curRule, rulesLength===0, noState);
         };
 
         $root.component.on(handler);
@@ -234,8 +238,9 @@ Router.prototype = {
             var anims = this.transitionAnims[transition], 
             animIn = noHistoryState ? anims[1][1] : anims[0][1], animOut = noHistoryState ? anims[1][0] : anims[0][0];
 
-            $cur.className = ['anim', animOut].join(' ');
-            $target.className = ['anim', animIn].join(' ');
+            // $cur.className = ['anim', animOut].join(' ');
+            // $target.className = ['anim', animIn].join(' ');
+            this.setAnim($cur, $target, animOut, animIn);
 
             setTimeout(function () {
                 _this._afterAnim($parent, $target, $cur);
@@ -243,6 +248,12 @@ Router.prototype = {
         }else{
             _this._afterAnim($parent, $target, $cur);
         }
+    },
+    setAnim: function($cur, $target, animOut, animIn){
+        var curAnim = ['anim', animOut].join(' '), targetAnim = ['anim', animIn].join(' ');
+        var curClass = $cur.className.replace(/[ ]?anim [^ ]+/g, '') + ' ' + curAnim, targetClass = $target.className.replace(/[ ]?anim [^ ]+/g, '') + ' ' + targetAnim;
+        $cur.className = curClass;
+        $target.className = targetClass;
     },
     _getHashQueryStr: function(fullPath){
         var hash = fullPath || location.hash || '', hashs = hash.split('?');
@@ -253,7 +264,7 @@ Router.prototype = {
         var $target, $cur,
             $children = $parent.childNodes, isCache = !!curRule.cache;
 
-        var fullPath = transPage.fullPath, pagePath = transPage.pagePath, isForce = transPage.isForce;
+        var fullPath = transPage.fullPath, pagePath = transPage.pagePath, isForce = transPage.isForce, nextPage = transPage.nextPage;
 
         if(isLast) pagePath = fullPath;
 
@@ -275,7 +286,7 @@ Router.prototype = {
         }
         
         if($target){
-            var $page = $target.querySelector('aui-page');
+            var $page = (nextPage&&$(nextPage)[0]) || $target.querySelector('aui-page');
             if($page && !isLast) $page.component.doStrigger();
         }else{
             if(Component.tag){
@@ -297,6 +308,8 @@ Router.prototype = {
             $target.pagePath = pagePath;
             if(isCache) $target.isCache = true;
             $parent.appendChild($target);
+            var $page = nextPage && $(nextPage)[0];
+            if($page && !isLast) $page.component.doStrigger();
         }
 
         return {$target:$target, $cur: $cur};
