@@ -1,16 +1,8 @@
-<ui>
-    <div class="minirefresh-wrap">
-        <div class="minirefresh-scroll">
-            <child></child>
-        </div>
-    </div>
-
-</ui>
-
 <script>
-// http://www.minirefresh.com/minirefresh-doc/
-import MiniRefreshTools from 'minirefresh';
-import 'minirefresh/dist/debug/minirefresh.css';
+// http://www.mescroll.com/api.html
+import MeScroll from 'mescroll.js'
+import 'mescroll.js/mescroll.min.css'
+import { setTimeout } from 'timers';
 let REFRESH_ID = 0;
 function setId($refresh){
     const id = '__REFRESH_ID__' + REFRESH_ID++;
@@ -35,65 +27,82 @@ export default class Refresher{
     }
 
     created(options){
-        const $el = $(this.$el);
-        if($el.hasAttr('delay')){
+        if(this.refresher) return;
+        const $refresh = $(this.$el);
+        if($refresh.hasAttr('delay')){
             return;
         }
-        const $refresh = $el.children('div'), refreshId = setId($refresh), refreshIdSelector = `#${refreshId}`;
-        const miniRefresh = this.miniRefresh = new MiniRefresh(Object.assign({
+        $refresh.addClass('mescroll');
+        const refreshId = setId($refresh), refreshIdSelector = `#${refreshId}`;
+        const _this = this;
+        const refresher = this.refresher = new MeScroll(this.$el, Object.assign({
             container: refreshIdSelector,
             isScrollBar: false,
             down: {
-                isLock: $el.is('aui-scroller') || $el.hasAttr('lockdown'),
                 callback: function() {
                     // 下拉事件
-                    $el.trigger('pulldown', [
+                    $refresh.trigger('pulldown', [
                         {
-                            refresh: function(flag){
-                                miniRefresh.endDownLoading(flag);
+                            refresh: function(){
+                                _this.refreshDown();
                             }
-                        }
+                        },
+                        refresher
                     ]);
                 }
             },
             up: {
-                isLock: $el.is('aui-scroller') || $el.hasAttr('lockup'),
-                isAuto: false,
                 callback: function() {
                     // 上拉事件
-                    $el.trigger('pullup', [
+                    $refresh.trigger('pullup', [
                         {
-                            refresh: function(flag){
-                                miniRefresh.endUpLoading(flag);
+                            refresh: function(){
+                                _this.refreshUp();
+                            },
+                            end: function(){
+                                _this.refreshUpEnd();
                             }
-                        }
+                        },
+                        refresher
                     ]);
                 }
             }
         }, options || {}));
     }
 
-    refreshDown(flag){
-        this.miniRefresh && this.miniRefresh.endDownLoading(flag);
+    detached(){
+        this.refresher && this.refresher.destroy();
     }
 
-    refreshUp(flag){
-        this.miniRefresh && this.miniRefresh.endUpLoading(flag);
+    refreshDown(){
+        this.refresher && this.refresher.endSuccess();
+        this.refresher && this.refresher.lockUpScroll(false);
+    }
+
+    refreshUp(){
+        this.refresher && this.refresher.endSuccess();
+    }
+
+    refreshUpEnd(){
+        this.refresher && this.refresher.endSuccess();
+        $(this.$el).children('.mescroll-upwarp').css({visibility: 'hidden'});
+        this.refresher && this.refresher.lockUpScroll(true);
     }
 
     scrollTo(y, duration){
-        this.miniRefresh && this.miniRefresh.scrollTo(y, duration);
+        this.refresher && this.refresher.scrollTo(y, duration);
     }
 
     getPosition(){
-        return this.miniRefresh && this.miniRefresh.getPosition();
+        return this.refresher && this.refresher.getPosition();
     }
 }
 
 </script>
 
 <style>
-aui-refresher{
+.mescroll{
+    display: block;
     width: 100%;
     height: auto;
 }

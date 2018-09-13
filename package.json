@@ -1,6 +1,6 @@
 {
   "name": "aui-h5",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Agile UI的HTML5版组件",
   "main": "src/index.js",
   "scripts": {
@@ -55,6 +55,7 @@
   "dependencies": {
     "cross-env": "^5.2.0",
     "extract-text-webpack-plugin": "^3.0.2",
+    "mescroll.js": "^1.3.6",
     "minirefresh": "^2.0.2",
     "swiper": "^4.3.3"
   }

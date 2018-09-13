@@ -1,0 +1,101 @@
+<ui>
+    <div class="minirefresh-wrap">
+        <div class="minirefresh-scroll">
+            <child></child>
+        </div>
+    </div>
+
+</ui>
+
+<script>
+// http://www.minirefresh.com/minirefresh-doc/
+import MiniRefreshTools from 'minirefresh';
+import 'minirefresh/dist/debug/minirefresh.css';
+let REFRESH_ID = 0;
+function setId($refresh){
+    const id = '__REFRESH_ID__' + REFRESH_ID++;
+    $refresh.attr('id', id);
+    return id;
+}
+
+export default class Refresher{
+    static get tag(){
+        return 'refresher';
+    }
+
+    static init(el, options){
+        const comp = ($(el)[0]||{}).component;
+        comp && comp.init(options);
+    }
+
+    init(options){
+        const $el = $(this.$el);
+        $el.removeAttr('delay');
+        this.create(options);
+    }
+
+    created(options){
+        const $el = $(this.$el);
+        if($el.hasAttr('delay')){
+            return;
+        }
+        const $refresh = $el.children('div'), refreshId = setId($refresh), refreshIdSelector = `#${refreshId}`;
+        const miniRefresh = this.miniRefresh = new MiniRefresh(Object.assign({
+            container: refreshIdSelector,
+            isScrollBar: false,
+            down: {
+                isLock: $el.is('aui-scroller') || $el.hasAttr('lockdown'),
+                callback: function() {
+                    // 下拉事件
+                    $el.trigger('pulldown', [
+                        {
+                            refresh: function(flag){
+                                miniRefresh.endDownLoading(flag);
+                            }
+                        }
+                    ]);
+                }
+            },
+            up: {
+                isLock: $el.is('aui-scroller') || $el.hasAttr('lockup'),
+                isAuto: false,
+                callback: function() {
+                    // 上拉事件
+                    $el.trigger('pullup', [
+                        {
+                            refresh: function(flag){
+                                miniRefresh.endUpLoading(flag);
+                            }
+                        }
+                    ]);
+                }
+            }
+        }, options || {}));
+    }
+
+    refreshDown(flag){
+        this.miniRefresh && this.miniRefresh.endDownLoading(flag);
+    }
+
+    refreshUp(flag){
+        this.miniRefresh && this.miniRefresh.endUpLoading(flag);
+    }
+
+    scrollTo(y, duration){
+        this.miniRefresh && this.miniRefresh.scrollTo(y, duration);
+    }
+
+    getPosition(){
+        return this.miniRefresh && this.miniRefresh.getPosition();
+    }
+}
+
+</script>
+
+<style>
+aui-refresher{
+    width: 100%;
+    height: auto;
+}
+
+</style>
