@@ -1,6 +1,6 @@
 {
   "name": "aui-h5",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "Agile UI的HTML5版组件",
   "main": "src/index.js",
   "scripts": {
@@ -44,7 +44,6 @@
     "glob": "^7.1.2",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
-    "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.6",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
