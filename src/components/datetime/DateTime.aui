@@ -65,16 +65,16 @@ export default class DateTime{
         if (formate) $input.setAttribute('data-formate', formate);
         if (mode) $input.setAttribute('data-mode', mode);
 
-        $($input)
-            .on('change', function(){
-                $($el).trigger('change').attr('value', $input.value);
-            })
-            .on('clear', function(){
-                $($el).trigger('clear');
-            })
-            .on('cancel', function(){
-                $($el).trigger('cancel');
-            });
+        // $($input)
+        //     .on('change', function(){
+        //         $($el).trigger('change').attr('value', $input.value);
+        //     })
+        //     .on('clear', function(){
+        //         $($el).trigger('clear');
+        //     })
+        //     .on('cancel', function(){
+        //         $($el).trigger('cancel');
+        //     });
     }
     created () {
         var $el = this.$el,
