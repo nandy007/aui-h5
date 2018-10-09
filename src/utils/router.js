@@ -208,15 +208,19 @@ Router.prototype = {
             }
         };
 
-        if (!noState) this._add2History(pageInfo);
+        this._add2History(pageInfo, noState);
 
         $root.component.on(handler);
 
         handler($root);
 
     },
-    _add2History: function (pageInfo) {
-        window.history.pushState(pageInfo, '', '#'+pageInfo.path);
+    _add2History: function (pageInfo, noState) {
+        if(noState){
+            window.history.replaceState(pageInfo, '', '#'+pageInfo.path);
+        }else{
+            window.history.pushState(pageInfo, '', '#'+pageInfo.path);
+        }
     },
     _doTransition: function(transPage, $parent, Component, curRule, isLast, noState){
         var fullPath = transPage.fullPath, 
