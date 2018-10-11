@@ -22,7 +22,7 @@
             </aui-list>
             <div v-if="!hasData" style="text-align:center;padding:10px;color:#ddd;">没有更多数据</div>
         </div>
-    </aui-refresh>
+    </aui-refresher>
 </ui>
 
 
