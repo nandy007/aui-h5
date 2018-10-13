@@ -106,9 +106,16 @@ export default class DialogPage{
                 {
                     text: 'Popup Top',
                     handler: function(){
-                        Popup.show({
+                        var $popup = Popup.show({
                             html: '<aui-button popup-handler="close">关闭</aui-button>',
                             pos: 'top'
+                        });
+                        $popup.on('created', function(){
+                            console.log('popup created');
+                        }).on('open', function(){
+                            console.log('popup open');
+                        }).on('close', function(){
+                            console.log('popup close');
                         });
                     }
                 },
@@ -144,7 +151,8 @@ export default class DialogPage{
                     handler: function(){
                         Popup.show({
                             html: '<aui-button popup-handler="close">关闭</aui-button>',
-                            pos: 'center'
+                            pos: 'center',
+                            isBlock: true
                         });
                     }
                 }

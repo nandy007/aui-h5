@@ -38,7 +38,7 @@ export default class Popup{
             options.html,
             '</aui-popup>'
         ];
-        $(htmlFragment.join(''))
+        return $(htmlFragment.join(''))
             .appendTo(document.body)
             .on('open', function(){
                 options.onOpen && options.onOpen.apply(this);
@@ -54,13 +54,17 @@ export default class Popup{
     setMask () {
         var popup = this;
         var $el = this.$popup;
-        var $mask = $el.children('.popup-mask');
+        var $mask = this.$mask,
+            $content = this.$content;
         var isBlock = !!(new Function(' return ' + $el.attr('isBlock') + ';'))();
         if (!isBlock) {
             $mask.on('click', function () {
                 popup.close();
             });
         }
+        $content.on('click', function(){
+            return false;
+        });
     }
 
     doAnimate () {
@@ -84,6 +88,8 @@ export default class Popup{
     created () {
         var popup = this;
         var $el = this.$popup = $(this.$el);
+        var $mask = this.$mask = $el.children('.popup-mask'),
+            $content = this.$content = $mask.children();
 
         this.$el.$open = function(){
             popup.open();
@@ -91,10 +97,10 @@ export default class Popup{
         this.$el.$close = function(){
             popup.close();
         };
-        $el.on('click', '[popup-handler="close"]', function(){
+        $content.on('click', '[popup-handler="close"]', function(){
             popup.close();
-        })
-        .trigger('created');
+        });
+        $el.trigger('created');
     }
     close () {
         var popup = this;
