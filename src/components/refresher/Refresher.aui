@@ -23,7 +23,7 @@ export default class Refresher{
     init(options){
         const $el = $(this.$el);
         $el.removeAttr('delay');
-        this.create(options);
+        this.created(options);
     }
 
     created(options){
