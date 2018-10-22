@@ -35,22 +35,21 @@ export default class Refresher{
         $refresh.addClass('mescroll');
         const refreshId = setId($refresh), refreshIdSelector = `#${refreshId}`;
         const _this = this;
-        const auto = $refresh.attr('auto') || 'auto';
+        const auto = $refresh.attr('auto');
         let downFlag = auto==='auto'?true:false, upFlag = downFlag;
         const refresher = this.refresher = new MeScroll(this.$el, Object.assign({
             container: refreshIdSelector,
             isScrollBar: false,
             down: {
                 callback: function() {
-                    // if(!downFlag){
-                    //     downFlag = true;
-                    //     return;
-                    // }
                     // 下拉事件
                     $refresh.trigger('pulldown', [
                         {
                             refresh: function(){
                                 _this.refreshDown();
+                            },
+                            end: function(){
+                                _this.refreshUpEnd();
                             }
                         },
                         refresher
@@ -59,10 +58,6 @@ export default class Refresher{
             },
             up: {
                 callback: function() {
-                    if(!upFlag){
-                        upFlag = true;
-                        return;
-                    }
                     // 上拉事件
                     $refresh.trigger('pullup', [
                         {
@@ -75,7 +70,8 @@ export default class Refresher{
                         },
                         refresher
                     ]);
-                }
+                },
+                auto: upFlag
             }
         }, options || {}));
     }
