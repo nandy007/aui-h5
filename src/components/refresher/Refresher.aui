@@ -26,6 +26,23 @@ export default class Refresher{
         this.created(options);
     }
 
+    bindEvent(){
+        const self = this, $refresh = $(this.$el);
+        // 初始化组件
+        $refresh.off('init').on('init', function(e, options){
+            self.init(options);
+        });
+
+        // 主动触发下拉刷新
+        $refresh.off('downscroll').on('downscroll', function(e){
+            self.refresher&&self.refresher.triggerDownScroll();
+        });
+        // 主动触发上拉刷新
+        $refresh.off('upscroll').on('upscroll', function(e){
+            self.refresher&&self.refresher.triggerUpScroll();
+        });
+    }
+
     created(options){
         if(this.refresher) return;
         const $refresh = $(this.$el);
@@ -74,6 +91,8 @@ export default class Refresher{
                 auto: upFlag
             }
         }, options || {}));
+
+        this.bindEvent();
     }
 
     detached(){
