@@ -19,10 +19,20 @@
             <br/> 实际封装示例请看datetime组件
         </div>
         <form id="demo" style="display:none" mbsc-form>
+            <div class="mbsc-form-group" id="render">
+                <div class="mbsc-form-group-title">datetime组件mvvm</div>
+                <label>
+                    <aui-datetime style="padding:20px;display:block;background:#fff;" type="date" v-bind:value="formData.datatime" placeholder="请输入日期">
+                        <input v-model="formData.datatime"/>
+                    </aui-datetime>
+                </label>
+            </div>
             <div class="mbsc-form-group">
                 <div class="mbsc-form-group-title">datetime组件</div>
                 <label>
-                    <aui-datetime style="padding:20px;display:block;background:#fff;" type="date" value="2016-12-01" placeholder="请输入日期"></aui-datetime>
+                    <aui-datetime style="padding:20px;display:block;background:#fff;" type="date" value="2016-01-01" placeholder="请输入日期">
+                        <input/>
+                    </aui-datetime>
                 </label>
             </div>
             <div class="mbsc-form-group">
@@ -182,6 +192,17 @@ export default class FormPage{
     }
 
     created () {
+
+        var obj = {
+            formData: {
+                datatime: '2016-06-06'
+            }
+        };
+
+        $(this.$el).find('#render').render(obj);
+
+        // obj.formData.datatime = '2018-01-01';
+
         mobiscroll.settings = {
             theme: 'ios',
             lang: 'zh',

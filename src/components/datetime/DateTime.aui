@@ -19,7 +19,7 @@ export default class DateTime{
         var type = $el.getAttribute('data-type') || 'date';
         var formate = $el.getAttribute('data-formate');
         var mode = $el.getAttribute('data-mode') || 'bottom';
-        var dateFormat = 'yyyy-mm-dd', timeFormat = 'HH:ii:ss';
+        var dateFormat = 'yy-mm-dd', timeFormat = 'HH:ii:ss';
         if (formate) {
             if (type === 'date') {
                 dateFormat = formate;
@@ -31,7 +31,7 @@ export default class DateTime{
                 if (formates[1]) timeFormat = formates[1];
             }
         }
-        return mobiscroll[type] && mobiscroll[type]($el, {
+        var options = {
             defaultValue: $el.value,
             dateFormat: dateFormat,
             timeFormat: timeFormat,
@@ -51,7 +51,8 @@ export default class DateTime{
             onClear(){
                 $($el).trigger('clear');
             }
-        });
+        };
+        return mobiscroll[type] && mobiscroll[type]($el, options);
     }
 
     init(){
@@ -64,6 +65,7 @@ export default class DateTime{
         $input.setAttribute('data-type', type);
         if (formate) $input.setAttribute('data-formate', formate);
         if (mode) $input.setAttribute('data-mode', mode);
+        $input.value = $el.getAttribute('value') || '';
 
         // $($input)
         //     .on('change', function(){
@@ -83,7 +85,6 @@ export default class DateTime{
             $input = document.createElement("input");
             $el.appendChild($input);
         }
-        $input.value = $el.getAttribute('value') || '';
         this.$input = $input;
         this.init();
         this.$selector = DateTime.init($input);
