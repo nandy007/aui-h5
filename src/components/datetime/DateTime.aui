@@ -21,15 +21,15 @@ export default class DateTime{
         var mode = $el.getAttribute('data-mode') || 'bottom';
         var dateFormat = 'yyyy-mm-dd', timeFormat = 'HH:ii:ss';
         if (formate) {
-        if (type === 'date') {
-            dateFormat = formate;
-        } else if (type === 'time') {
-            timeFormat = formate;
-        } else if (type === 'datetime') {
-            var formates = formate.split(' ');
-            if (formates[0]) dateFormat = formates[0];
-            if (formates[1]) timeFormat = formates[1];
-        }
+            if (type === 'date') {
+                dateFormat = formate;
+            } else if (type === 'time') {
+                timeFormat = formate;
+            } else if (type === 'datetime') {
+                var formates = formate.split(' ');
+                if (formates[0]) dateFormat = formates[0];
+                if (formates[1]) timeFormat = formates[1];
+            }
         }
         return mobiscroll[type] && mobiscroll[type]($el, {
             defaultValue: $el.value,
@@ -83,6 +83,7 @@ export default class DateTime{
             $input = document.createElement("input");
             $el.appendChild($input);
         }
+        $input.value = $el.getAttribute('value') || '';
         this.$input = $input;
         this.init();
         this.$selector = DateTime.init($input);
