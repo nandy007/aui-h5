@@ -10,7 +10,7 @@ export default class DateTime{
         return 'datetime';
     }
 
-    static get observeAttributes(){
+    static get observedAttributes(){
         return ['value'];
     }
     
@@ -94,7 +94,7 @@ export default class DateTime{
     }
     attributeChanged(attrName, oldVal, newVal){
         if(attrName==='value'){
-            this.$input.value = newVal;
+            if(this.$input) this.$input.value = newVal;
         }
     }
 
