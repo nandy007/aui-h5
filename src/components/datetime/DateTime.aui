@@ -67,10 +67,10 @@ export default class DateTime{
         if (mode) $input.setAttribute('data-mode', mode);
         $input.value = $el.getAttribute('value') || '';
 
-        // $($input)
-        //     .on('change', function(){
-        //         $($el).trigger('change').attr('value', $input.value);
-        //     })
+        $($input)
+            .on('change', function(){
+                $($el).attr('value', $input.value);
+            });
         //     .on('clear', function(){
         //         $($el).trigger('clear');
         //     })

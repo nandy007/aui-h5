@@ -201,6 +201,10 @@ export default class FormPage{
 
         $(this.$el).find('#render').render(obj);
 
+        $('aui-datetime').on('change', function(){
+            console.log($(this).attr('value'));
+        })
+
         // obj.formData.datatime = '2018-01-01';
 
         mobiscroll.settings = {

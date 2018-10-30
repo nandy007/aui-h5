@@ -1,6 +1,6 @@
 {
   "name": "aui-h5",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "description": "Agile UI的HTML5版组件",
   "main": "src/index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/nandy007/aui-h5#readme",
   "devDependencies": {
-    "agile-ce": "^0.4.22",
+    "agile-ce": "^0.4.23",
     "aui-loader": "^0.3.9",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
