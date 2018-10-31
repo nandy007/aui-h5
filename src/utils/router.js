@@ -203,7 +203,8 @@ Router.prototype = {
 
             if(rulesLength===0) {
                 $root.component.on(null);
-                var $near = (nextPage&&$(nextPage)[0]) || ($page&&$page.querySelector('aui-page'));
+                // var $near = (nextPage&&$(nextPage)[0]) || ($page&&$page.querySelector('aui-page'));
+                var $near = nextPage&&$(nextPage)[0];
                 if($near) $near.innerHTML = '';
             }
         };
