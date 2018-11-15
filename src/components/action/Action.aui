@@ -50,6 +50,15 @@ const actionHandlers = {
     }
 };
 
+function commHandler () {
+    const $t = $(this), type = $t.attr('type') || 'goto', context = $t.attr('context'), handler = actionHandlers[type];
+    if(!handler){
+        console.warn('Action组件处理类型[ ' + type + ' ]不存在');
+    }else{
+        return handler($t, context);
+    }
+}
+
 export default class Action{
     static get tag(){
         return 'action';
@@ -71,15 +80,8 @@ export default class Action{
     static bindHandler(...args){
         const $el = args.shift();
         args.unshift(config.clickEvent);
-        args.push(function () {
-            const $t = $(this), type = $t.attr('type') || 'goto', context = $t.attr('context'), handler = actionHandlers[type];
-            if(!handler){
-                console.warn('Action组件处理类型[ ' + type + ' ]不存在');
-            }else{
-                return handler($t, context);
-            }
-        });
-        $el.on(...args);
+        args.push(commHandler);
+        $el.off(config.clickEvent, commHandler).on(...args);
     }
 
     static listener(el){
