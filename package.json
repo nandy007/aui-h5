@@ -24,7 +24,11 @@
   },
   "homepage": "https://github.com/nandy007/aui-h5#readme",
   "devDependencies": {
+<<<<<<< HEAD
     "agile-ce": "^0.4.36",
+=======
+    "agile-ce": "^0.4.33",
+>>>>>>> e1204a56f9f48a4bd9167e5b91f0ab004091569e
     "aui-loader": "^0.3.9",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
