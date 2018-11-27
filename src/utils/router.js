@@ -323,13 +323,22 @@ Router.prototype = {
     formatePageInfo: function (pageStr) {
         if (!pageStr) return;
         if (typeof pageStr === 'object') return pageStr;
+        var rs;
         try {
             var obj = (new Function('return ' + pageStr + ';'))();
             if(obj instanceof RegExp) throw new Error('');
-            return obj;
+            rs = obj;
         } catch (e) {
-            return { path: pageStr };
+            rs = { path: pageStr };
         }
+        // isEncoding默认为true，即url已经编过码
+        rs.isEncoding = typeof rs.isEncoding==='undefined'?true:!!(rs.isEncoding);
+        // 编过码的路径需要解码，确保一致
+        if(rs.path && rs.isEncoding){
+            rs.path = decodeURIComponent(rs.path);
+        }
+
+        return rs;
     },
     addHandler: function (obj) {
         for (var k in obj) {
