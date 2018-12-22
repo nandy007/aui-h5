@@ -126,15 +126,17 @@ export default class ActionPage{
 
 </script>
 
-<style>
-[type="toggle"].active .icon-arrowdown::before,
-[type="control"].active .icon-arrowdown::before{
-    content: '\e694';
-}
-.content-tips{
-    font-size: 13px;
-    color: #7F8C8D;
-    margin: 10px;
+<style type="less">
+aui-actionpage{
+    [type="toggle"].active .icon-arrowdown::before,
+    [type="control"].active .icon-arrowdown::before{
+        content: '\e694';
+    }
+    .content-tips{
+        font-size: 13px;
+        color: #7F8C8D;
+        margin: 10px;
+    }
 }
 </style>
 
