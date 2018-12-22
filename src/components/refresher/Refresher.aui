@@ -5,8 +5,11 @@ import 'mescroll.js/mescroll.min.css'
 import { setTimeout } from 'timers';
 let REFRESH_ID = 0;
 function setId($refresh){
-    const id = '__REFRESH_ID__' + REFRESH_ID++;
-    $refresh.attr('id', id);
+    let id = $refresh.attr('id');
+    if(!id){
+        id = '__REFRESH_ID__' + REFRESH_ID++;
+        $refresh.attr('id', id);
+    }
     return id;
 }
 
