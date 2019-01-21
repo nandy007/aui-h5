@@ -296,7 +296,7 @@ Router.prototype = {
             if($page && !isLast) $page.component.doStrigger();
         }else{
             if(Component.tag){
-                $target = document.createElement('aui-' + Component.tag);
+                $target = document.createElement(Component.fullTag || ('aui-' + Component.tag));
             }else if(typeof Component === 'string'){
                 var outer = document.createElement('div');
                 outer.innerHTML = Component;
