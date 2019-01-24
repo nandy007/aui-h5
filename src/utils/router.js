@@ -335,7 +335,9 @@ Router.prototype = {
         rs.isEncoding = typeof rs.isEncoding==='undefined'?true:!!(rs.isEncoding);
         // 编过码的路径需要解码，确保一致
         if(rs.path && rs.isEncoding){
-            rs.path = decodeURIComponent(rs.path);
+            try{
+                rs.path = decodeURIComponent(rs.path);
+            }catch(e){}
         }
 
         return rs;
