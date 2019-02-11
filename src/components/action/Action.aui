@@ -27,7 +27,6 @@ const actionHandlers = {
         if(mode==='hash'){
             location.href = pageStr;
         }else if(mode==='history'){
-            if(pageStr.indexOf('#')===0) pageStr = pageStr.replace('#', '');
             router.go(pageStr);
         }
         

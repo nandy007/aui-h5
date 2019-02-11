@@ -376,6 +376,8 @@ Router.prototype = {
             }catch(e){}
         }
 
+        if(rs.path && rs.path.indexOf('#')===0) rs.path = rs.path.replace('#', '');
+
         return rs;
     },
     addHandler: function (obj) {
