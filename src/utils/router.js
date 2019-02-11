@@ -139,12 +139,12 @@ Router.prototype = {
         evt.initEvent(evtName, false, false);
         $el.dispatchEvent(evt);
     },
-    _trigger: function ($show, $hide) {
-        $show && $($show).trigger('enter');
-        $hide && $($hide).trigger('leave');
+    _trigger: function ($show, $hide, query) {
+        $show && $($show).triggerHandler('enter', [query]);
+        $hide && $($hide).triggerHandler('leave', [query]);
     },
-    _afterAnim: function ($page, $target, $cur) {
-        this._trigger($target, $cur);
+    _afterAnim: function ($page, $target, $cur, query) {
+        this._trigger($target, $cur, query);
         if ($cur) {
             if ($cur.isCache) {
                 $($cur).removeClass('active');
@@ -224,7 +224,9 @@ Router.prototype = {
                 fullPath: fullPath,
                 pagePath: pagePath,
                 isForce: pageInfo.isForce,
-                nextPage: nextPage
+                nextPage: nextPage,
+                query: query,
+                anim: pageInfo.anim
             };
             _this._doTransition(transPage, $page, Component, curRule, rulesLength===0, noState);
 
@@ -263,7 +265,8 @@ Router.prototype = {
         var fullPath = transPage.fullPath, 
             transitionObj = this._getTransition($parent, transPage, Component, curRule, isLast),
             $target = transitionObj.$target, $cur = transitionObj.$cur,
-            transition = $parent.getAttribute('transition'), isTansition = transition&&isLast;
+            transition = $parent.getAttribute('transition'), isTansition = transPage.anim ? transition&&isLast : false,
+            query = transPage.query;
         var _this = this;
         
         if(isTansition){
@@ -276,7 +279,7 @@ Router.prototype = {
             } else {
                 this._history.unshift({path:fullPath});
             }
-            if(!$cur) return _this._afterAnim($parent, $target, $cur);
+            if(!$cur) return _this._afterAnim($parent, $target, $cur, query);
             var anims = this.transitionAnims[transition], 
             animIn = noHistoryState ? anims[1][1] : anims[0][1], animOut = noHistoryState ? anims[1][0] : anims[0][0];
 
@@ -285,10 +288,10 @@ Router.prototype = {
             this.setAnim($cur, $target, animOut, animIn);
 
             setTimeout(function () {
-                _this._afterAnim($parent, $target, $cur);
+                _this._afterAnim($parent, $target, $cur, query);
             }, 300);
         }else{
-            _this._afterAnim($parent, $target, $cur);
+            _this._afterAnim($parent, $target, $cur, query);
         }
     },
     setAnim: function($cur, $target, animOut, animIn){
@@ -377,6 +380,7 @@ Router.prototype = {
         }
 
         if(rs.path && rs.path.indexOf('#')===0) rs.path = rs.path.replace('#', '');
+        if(typeof rs.anim==='undefined') rs.anim = true;
 
         return rs;
     },
