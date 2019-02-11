@@ -12,6 +12,7 @@ import SwiperPage from '../pages/SwiperPage.aui';
 import FormPage from '../pages/FormPage.aui';
 import ActionPage from '../pages/ActionPage.aui';
 
+router.setMode('history');
 
  
 router.add([

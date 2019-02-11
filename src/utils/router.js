@@ -5,6 +5,7 @@ var _action = {
 };
 
 function Router() {
+    this._mode = 'hash';
     this.indexInfo = null;
     this._routers = [];
     this._history = [];
@@ -20,7 +21,18 @@ function Router() {
     this.initHandler();
 }
 
+Router.mode = {
+    hash: 'hash',
+    history: 'history'
+};
+
 Router.prototype = {
+    getMode: function(){
+        return this._mode || Router.mode.hash;
+    },
+    setMode: function(mode){
+        this._mode = mode;
+    },
     initHandler: function () {
         this._handler = {};
         var action = _action;
@@ -45,7 +57,13 @@ Router.prototype = {
     },
     _initEvent: function(){
         if(this.isInit) return;
-        window.addEventListener('hashchange', hashHandler, false);
+        var mode = this.getMode();
+        if(mode===Router.mode.hash){
+            window.addEventListener('hashchange', hashHandler, false);
+        }else if(mode===Router.mode.history){
+            window.addEventListener('popstate', popstateHandler, false);
+        }
+        
         this.isInit = true;
     },
     add: function () {
@@ -79,9 +97,18 @@ Router.prototype = {
             return v;
         }
     },
+    _getPagePath: function(){
+        var mode = this.getMode();
+        if(mode===Router.mode.hash){
+            return location.hash.replace('#', '');
+        }else if(mode===Router.mode.history){
+            return (this._lastPage && this._lastPage.path) || '';
+        }
+        return '';
+    },
     getQueryObj: function (pagePath) {
         if(!pagePath){
-            pagePath = location.hash.replace('#', '');
+            pagePath = this._getPagePath();
         }
         var query = pagePath.split('?')[1] || '';
         var seg = query.split('&');
@@ -216,11 +243,20 @@ Router.prototype = {
         handler($root);
 
     },
+    _getHistoryPath: function(pageInfo){
+        var mode = this.getMode();
+        if(mode===Router.mode.hash){
+            return '#'+pageInfo.path;
+        }else if(mode===Router.mode.history){
+            return pageInfo.path;
+        }
+        return '';
+    },
     _add2History: function (pageInfo, noState) {
         if(noState){
-            window.history.replaceState(pageInfo, '', '#'+pageInfo.path);
+            window.history.replaceState(pageInfo, '', this._getHistoryPath(pageInfo));
         }else{
-            window.history.pushState(pageInfo, '', '#'+pageInfo.path);
+            window.history.pushState(pageInfo, '', this._getHistoryPath(pageInfo));
         }
     },
     _doTransition: function(transPage, $parent, Component, curRule, isLast, noState){
@@ -262,7 +298,7 @@ Router.prototype = {
         $target.className = targetClass;
     },
     _getHashQueryStr: function(fullPath){
-        var hash = fullPath || location.hash || '', hashs = hash.split('?');
+        var hash = fullPath || this._getPagePath(), hashs = hash.split('?');
         if(hashs.length>1) return '?'+hashs[1];
         return '';
     },
@@ -350,17 +386,26 @@ Router.prototype = {
     getHandler: function (k) {
         return this._handler[k];
     },
+    isCurPage: function(pageInfo){
+        var mode = this.getMode();
+        if(mode===Router.mode.hash){
+            return ('#'+pageInfo.path)===location.hash;
+        }else if(mode===Router.mode.history){
+            return this._lastPage && this._lastPage.path===pageInfo.path;
+        }
+    },
     go: function (pageStr, noState) {
         pageStr = pageStr || '/';
         var pageInfo = this.formatePageInfo(pageStr);
         if (!pageInfo) return;
         if (pageInfo.path) {
-            if(typeof noState==='undefined' && ('#'+pageInfo.path)===location.hash) noState = true;
+            if(typeof noState==='undefined' && this.isCurPage(pageInfo)) noState = true;
             this.doRouter(pageInfo, noState);
         } else if (pageInfo.action) {
             var handler = this.getHandler(pageInfo.action);
             handler && handler.call(this, pageInfo);
         }
+        this._lastPage = pageInfo;
     }
 };
 
@@ -369,6 +414,12 @@ var router = new Router();
 function hashHandler() {
     var hash = location.hash || '/', query = hash.replace('#', '');
     router.go(query, true);
+}
+
+function popstateHandler(e) {
+    var pageInfo = e.state;
+    if(!pageInfo) return;
+    router.go(pageInfo, true);
 }
 
 

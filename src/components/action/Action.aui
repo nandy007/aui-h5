@@ -22,8 +22,15 @@ const actionHandlers = {
     },
     goto($el){
         $el = initEl($el);
-        const pageStr = $el.attr('href');
-        location.href = pageStr;
+        let pageStr = $el.attr('href')||'';
+        const mode = router.getMode();
+        if(mode==='hash'){
+            location.href = pageStr;
+        }else if(mode==='history'){
+            if(pageStr.indexOf('#')===0) pageStr = pageStr.replace('#', '');
+            router.go(pageStr);
+        }
+        
     },
     control($el, context){
         $el = initEl($el);

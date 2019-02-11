@@ -11,7 +11,7 @@
         <br/>
         <aui-list>
             <list-cell>
-                <aui-action href="#/list">
+                <aui-action href="#/list?a=1&b=2">
                     列表组件 <i class="icon auicon icon-arrowright"></i>
                 </aui-action>
             </list-cell>
