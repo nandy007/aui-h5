@@ -268,6 +268,9 @@ Router.prototype = {
             transition = $parent.getAttribute('transition'), isTansition = transPage.anim ? transition&&isLast : false,
             query = transPage.query;
         var _this = this;
+
+        // history情况下无状态的则一律清除上一个页面
+        if(this.getMode()===Router.mode.history && noState && $cur) $cur.isCache = false;
         
         if(isTansition){
             var noHistoryState = noState;
