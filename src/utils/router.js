@@ -207,7 +207,9 @@ Router.prototype = {
 
             if(pageRules.length===0) return;
 
-            var curRule = pageRules.shift(), pagePath = curRule.path.toString(), nextPage = curRule.nextPage;
+            var curRule = pageRules.shift(), pagePath = curRule.path.toString();
+            // var nextPage = curRule.nextPage;
+            var nextPage = $page.querySelector('aui-page');
 
             var Component;
 
