@@ -149,7 +149,9 @@ Router.prototype = {
             if ($cur.isCache) {
                 $($cur).removeClass('active');
             } else {
-                $page.triggerHandler('auiPageRemove').removeChild($cur);
+                var $$cur = $($cur);
+                $$cur.triggerHandler('auiPageRemove');
+                $$cur.remove();
             }
         }
         $($target).addClass('active');
@@ -237,7 +239,7 @@ Router.prototype = {
                 // var $near = (nextPage&&$(nextPage)[0]) || ($page&&$page.querySelector('aui-page'));
                 var $near = nextPage&&$(nextPage)[0];
                 if($near){
-                    $($near).triggerHandler('auiPageRemove')
+                    $($near).children().triggerHandler('auiPageRemove');
                     $near.innerHTML = '';
                 }
             }
@@ -334,7 +336,9 @@ Router.prototype = {
         }
 
         if(isLast&&isForce&&$target){
-            $($target).triggerHandler('auiPageRemove').remove();
+            var $$target = $($target);
+            $$target.triggerHandler('auiPageRemove')
+            $$target.remove();
             $target = null;
         }
         
