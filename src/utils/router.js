@@ -149,7 +149,7 @@ Router.prototype = {
             if ($cur.isCache) {
                 $($cur).removeClass('active');
             } else {
-                $page.removeChild($cur);
+                $page.triggerHandler('auiPageRemove').removeChild($cur);
             }
         }
         $($target).addClass('active');
@@ -236,7 +236,10 @@ Router.prototype = {
                 $root.component.on(null);
                 // var $near = (nextPage&&$(nextPage)[0]) || ($page&&$page.querySelector('aui-page'));
                 var $near = nextPage&&$(nextPage)[0];
-                if($near) $near.innerHTML = '';
+                if($near){
+                    $($near).triggerHandler('auiPageRemove')
+                    $near.innerHTML = '';
+                }
             }
         };
 
@@ -331,7 +334,7 @@ Router.prototype = {
         }
 
         if(isLast&&isForce&&$target){
-            $($target).remove();
+            $($target).triggerHandler('auiPageRemove').remove();
             $target = null;
         }
         
