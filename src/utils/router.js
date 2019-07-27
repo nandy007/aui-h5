@@ -295,20 +295,23 @@ Router.prototype = {
 
             // $cur.className = ['anim', animOut].join(' ');
             // $target.className = ['anim', animIn].join(' ');
-            this.setAnim($cur, $target, animOut, animIn);
-
-            setTimeout(function () {
+            this.setAnim($cur, $target, animOut, animIn, function(){
                 _this._afterAnim($parent, $target, $cur, query);
-            }, 300);
+            });
         }else{
             _this._afterAnim($parent, $target, $cur, query);
         }
     },
-    setAnim: function($cur, $target, animOut, animIn){
+    setAnim: function($cur, $target, animOut, animIn, cb){
         var curAnim = ['anim', animOut].join(' '), targetAnim = ['anim', animIn].join(' ');
         var curClass = $cur.className.replace(/[ ]?anim [^ ]+/g, '') + ' ' + curAnim, targetClass = $target.className.replace(/[ ]?anim [^ ]+/g, '') + ' ' + targetAnim;
         $cur.className = curClass;
         $target.className = targetClass;
+        setTimeout(function () {
+            $cur.className = ($cur.className||'').replace(curAnim, '');
+            $target.className = ($target.className||'').replace(targetAnim, '');
+            cb && cb();
+        }, 300);
     },
     _getHashQueryStr: function(fullPath){
         var hash = fullPath || this._getPagePath(), hashs = hash.split('?');
