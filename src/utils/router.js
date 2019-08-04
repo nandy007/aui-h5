@@ -145,16 +145,28 @@ Router.prototype = {
     },
     _afterAnim: function ($page, $target, $cur, query) {
         this._trigger($target, $cur, query);
-        if ($cur) {
-            if ($cur.isCache) {
-                $($cur).removeClass('active');
-            } else {
-                var $$cur = $($cur);
-                $$cur.triggerHandler('auiPageRemove');
-                $$cur.remove();
+        // if ($cur) {
+        //     if ($cur.isCache) {
+        //         $($cur).removeClass('active');
+        //     } else {
+        //         var $$cur = $($cur);
+        //         $$cur.triggerHandler('auiPageRemove');
+        //         $$cur.remove();
+        //     }
+        // }
+        var $$target = $($target);
+        var $children = $$target.parent().children();
+        $children.each(function(){
+            if(this===$target) return;
+            var $child = $(this);
+            if(this.isCache){
+                $child.removeClass('active');
+            }else{
+                $child.triggerHandler('auiPageRemove');
+                $child.remove();
             }
-        }
-        $($target).addClass('active');
+        });
+        $$target.addClass('active');
     },
     _getDeepRules: function(pagePath, routers, paths, deep, noState){
         for (var i = 0, len = routers.length; i < len; i++) {
