@@ -155,9 +155,8 @@ Router.prototype = {
         //     }
         // }
         var $$target = $($target);
-        var $children = $$target.parent().children();
-        $children.each(function(){
-            if(this===$target) return;
+        var $siblings = $$target.siblings();
+        $siblings.each(function(){
             var $child = $(this);
             if(this.isCache){
                 $child.removeClass('active');
