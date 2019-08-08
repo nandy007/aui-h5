@@ -143,7 +143,7 @@ Router.prototype = {
         $show && $($show).triggerHandler('enter', [query]);
         $hide && $($hide).triggerHandler('leave', [query]);
     },
-    _afterAnim: function ($page, $target, $cur, query) {
+    _afterAnim: function ($page, $target, $cur, query, trigger) {
         this._trigger($target, $cur, query);
         // if ($cur) {
         //     if ($cur.isCache) {
@@ -155,8 +155,10 @@ Router.prototype = {
         //     }
         // }
         var $$target = $($target);
-        var $siblings = $$target.siblings();
+        var $siblings = $$target.siblings('.active');
+        
         $siblings.each(function(){
+            if(this===$target) return;
             var $child = $(this);
             if(this.isCache){
                 $child.removeClass('active');
@@ -166,6 +168,8 @@ Router.prototype = {
             }
         });
         $$target.addClass('active');
+
+        trigger && trigger.component.doStrigger();
     },
     _getDeepRules: function(pagePath, routers, paths, deep, noState){
         for (var i = 0, len = routers.length; i < len; i++) {
@@ -222,7 +226,7 @@ Router.prototype = {
 
             var curRule = pageRules.shift(), pagePath = curRule.path.toString();
             // var nextPage = curRule.nextPage;
-            var nextPage = $page.querySelector('aui-page');
+            var nextPage = null;//$page.querySelector('aui-page');
 
             var Component;
 
@@ -244,6 +248,8 @@ Router.prototype = {
                 anim: pageInfo.anim
             };
             _this._doTransition(transPage, $page, Component, curRule, rulesLength===0, noState);
+
+            nextPage = transPage.nextPage;
 
             if(rulesLength===0) {
                 $root.component.on(null);
@@ -282,7 +288,7 @@ Router.prototype = {
     _doTransition: function(transPage, $parent, Component, curRule, isLast, noState){
         var fullPath = transPage.fullPath, 
             transitionObj = this._getTransition($parent, transPage, Component, curRule, isLast),
-            $target = transitionObj.$target, $cur = transitionObj.$cur,
+            $target = transitionObj.$target, $cur = transitionObj.$cur, trigger = transitionObj.trigger,
             transition = $parent.getAttribute('transition'), isTansition = transPage.anim ? transition&&isLast : false,
             query = transPage.query;
         var _this = this;
@@ -300,18 +306,20 @@ Router.prototype = {
             } else {
                 this._history.unshift({path:fullPath});
             }
-            if(!$cur) return _this._afterAnim($parent, $target, $cur, query);
+            if(!$cur) return _this._afterAnim($parent, $target, $cur, query, trigger);
             var anims = this.transitionAnims[transition], 
             animIn = noHistoryState ? anims[1][1] : anims[0][1], animOut = noHistoryState ? anims[1][0] : anims[0][0];
 
             // $cur.className = ['anim', animOut].join(' ');
             // $target.className = ['anim', animIn].join(' ');
             this.setAnim($cur, $target, animOut, animIn, function(){
-                _this._afterAnim($parent, $target, $cur, query);
+                _this._afterAnim($parent, $target, $cur, query, trigger);
             });
         }else{
-            _this._afterAnim($parent, $target, $cur, query);
+            _this._afterAnim($parent, $target, $cur, query, trigger);
         }
+
+        // trigger && trigger.component.doStrigger();
     },
     setAnim: function($cur, $target, animOut, animIn, cb){
         var curAnim = ['anim', animOut].join(' '), targetAnim = ['anim', animIn].join(' ');
@@ -355,10 +363,14 @@ Router.prototype = {
             $$target.remove();
             $target = null;
         }
+
+        var trigger;
         
         if($target){
             var $page = (nextPage&&$(nextPage)[0]) || $target.querySelector('aui-page');
-            if($page && !isLast) $page.component.doStrigger();
+            transPage.nextPage = $page;
+            // if($page && !isLast) $page.component.doStrigger();
+            if($page && !isLast) trigger = $page;
         }else{
             if(Component.tag){
                 $target = document.createElement(Component.fullTag || ('aui-' + Component.tag));
@@ -380,10 +392,12 @@ Router.prototype = {
             if(isCache) $target.isCache = true;
             $parent.appendChild($target);
             var $page = nextPage && $(nextPage)[0];
-            if($page && !isLast) $page.component.doStrigger();
+            // if($page && !isLast) $page.component.doStrigger();
+            transPage.nextPage = $page;
+            if($page && !isLast) trigger = $page;
         }
 
-        return {$target:$target, $cur: $cur};
+        return {$target:$target, $cur: $cur, trigger};
     },
     formatePageInfo: function (pageStr) {
         if (!pageStr) return;
